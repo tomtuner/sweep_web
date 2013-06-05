@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  value: MyString
+  scanned_at: 2013-06-04 03:35:20
+  event_id: 1
+
+two:
+  value: MyString
+  scanned_at: 2013-06-04 03:35:20
+  event_id: 1
