@@ -1,16 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.13'
 
 gem 'mysql2'
 
 gem 'execjs'
 gem 'therubyracer'
-
-gem 'sqlite3'
 
 gem 'json'
 
@@ -42,3 +40,9 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug'
+# gem "rspec-rails", :group => [:test, :development]
+group :test do
+  gem "factory_girl_rails"
+  gem "ruby-prof"
+  gem "guard-test"
+end
