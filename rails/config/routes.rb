@@ -8,6 +8,7 @@ Sweep::Application.routes.draw do
 			resources :scans
       resources :customers
       resources :departments
+      resources :department_validation
 		end
 	end
 		
@@ -18,6 +19,7 @@ Sweep::Application.routes.draw do
 	resources :scans
   resources :customers
   resources :departments
+  resources :department_validation
 	
 	root :to => 'scans#index', :as =>'scans'
 

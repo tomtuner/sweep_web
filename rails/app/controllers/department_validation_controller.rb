@@ -1,0 +1,4 @@
+class DepartmentValidationController < ApplicationController
+  
+  
+end
