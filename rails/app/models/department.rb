@@ -3,7 +3,8 @@ class Department < ActiveRecord::Base
   attr_accessible :customer_id, :name, :valid_key
   after_initialize :init
   validates :customer_id, :presence => true
-  validates :name, :uniqueness => true
+  validates :name, :uniqueness => {:scope => :customer_id}
+  validates :valid_key, :uniqueness => {:scope => :customer_id}
   validates_associated :events
   
   def self.validate_key(key)

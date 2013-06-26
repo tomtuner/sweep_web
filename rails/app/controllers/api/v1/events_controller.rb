@@ -5,13 +5,13 @@ module Api
       respond_to :json
       
       def index
-        department = params[:department]
+        # department = params[:department]
         # Add this back in
         # valid_dep = Department.find_by_valid_key_and_customer_id(department[:valid_key], department[:customer_id])
         valid_dep = Department.validate_key(params[:valid_key])
         
         # events = Event.find_by_department_id_updated_after(valid_dep[:id], params[:updated_at])
-        events = Event.where("department_id = ?", valid_dep[:id])
+        events = Event.where("department_id = ?",  valid_dep[:id])
         # events = Event.find_by_department_id(valid_dep[:id])
         Rails.logger.info(events)
         
@@ -36,7 +36,7 @@ module Api
       
       # private
       def check_department_key
-        department = params[:department]
+        # department = params[:department]
         # Add this back in
         # valid_dep = Department.find_by_valid_key_and_customer_id(department[:valid_key], department[:customer_id])
         valid_dep = Department.validate_key(params[:valid_key])
