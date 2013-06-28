@@ -11,7 +11,12 @@ module Api
         valid_dep = Department.validate_key(params[:valid_key])
         
         # events = Event.find_by_department_id_updated_after(valid_dep[:id], params[:updated_at])
-        events = Event.where("department_id = ?",  valid_dep[:id])
+        if params[:updated_at]
+          updated_at_date = DateTime.strptime(params[:updated_at], '%Y-%m-%dT%H:%M:%S%z')
+          events = Event.where("department_id = ? AND updated_at > ?",  valid_dep[:id], updated_at_date)
+        else
+          events = Event.where("department_id = ?",  valid_dep[:id])
+        end
         # events = Event.find_by_department_id(valid_dep[:id])
         Rails.logger.info(events)
         
