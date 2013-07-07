@@ -5,8 +5,10 @@ module Api
 
       def create
         department = Department.validate_key(params[:valid_key])
-        customer = Customer.find_by_id(department[:customer_id])
-        Rails.logger.info department
+        if department
+          customer = Customer.find_by_id(department[:customer_id])
+        end
+
         if department && customer
           # response = {:department => department, :customer => customer}
           # respond_with department, customer
