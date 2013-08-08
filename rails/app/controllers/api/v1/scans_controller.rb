@@ -31,7 +31,7 @@ module Api
           # scans = Scan.find_by_event_id(event_ids)
           scans = Scan.where("event_id IN (?)", event_ids)
         end
-        
+        # Rails.logger.info("Scans: " + scans.to_su)
         respond_with scans
       end
       

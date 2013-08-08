@@ -1,0 +1,14 @@
+development:
+  private_key:  <%= Rails.root.to_s + '/config/encryption/private.pem' %>
+  public_key: <%= Rails.root.to_s + '/config/encryption/public.pem' %>
+  # hi: thomas
+  
+test:
+  private_key:  <%= Rails.root.to_s + '/config/encryption/private.pem' %>
+  public_key: <%= Rails.root.to_s + '/config/encryption/public.pem' %>
+  # hi: thomas
+
+production:
+  private_key:  <%= Rails.root.to_s + '/config/encryption/private.pem' %>
+  public_key: <%= Rails.root.to_s + '/config/encryption/public.pem' %>
+  # hi: thomas
