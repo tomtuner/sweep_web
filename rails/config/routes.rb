@@ -20,7 +20,7 @@ Sweep::Application.routes.draw do
  #get "scans/index"
  
 	#resources :events
-	#resources :scans
+	#resources :scans, :only =>[:create]
   #resources :customers
   #resources :departments
   #resources :department_validation

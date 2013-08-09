@@ -4,23 +4,28 @@ module Api
       respond_to :json
       
       def index
-        respond_with Department.all
+        @department = Department.all
+        respond_with(:api, @department)
       end
       
       def show
-        respond_with Department.find(params[:id])
+        @department = Department.find(params[:id])
+        respond_with(:api, @department)
       end
       
       def create
-        respond_with Department.create(params[:department])
+        @department = Department.create(params[:department])
+        respond_with(:api, @department)
       end
       
       def update
-        respond_with Department.update(params[:id], params[:department])
+        @department = Department.update(params[:id], params[:department])
+        respond_with(:api, @department)
       end
       
       def destroy
-        respond_with Department.destroy(params[:id])
+        @department = Department.destroy(params[:id])
+        respond_with(:api, @department)
       end
       
     end

@@ -16,39 +16,43 @@ module Api
         
         if params[:updated_at] && event          
           updated_at_date = DateTime.strptime(params[:updated_at], '%Y-%m-%dT%H:%M:%S%z')
-          scans = Scan.where("event_id = ? AND updated_at > ?", valid_dep[:id], event[:id], updated_at_date)
+          @scans = Scan.where("event_id = ? AND updated_at > ?", valid_dep[:id], event[:id], updated_at_date)
         elsif params[:updated_at] && event.nil?
           event_ids = Event.where("department_id = ?", valid_dep[:id]).select("id")
           
           updated_at_date = DateTime.strptime(params[:updated_at], '%Y-%m-%dT%H:%M:%S%z')
-          scans = Scan.where("event_id IN (?) AND updated_at > ?", event_ids, updated_at_date)
+          @scans = Scan.where("event_id IN (?) AND updated_at > ?", event_ids, updated_at_date)
           # scans = Scan.where("event_id = ?",  event[:id])
         elsif params[:updated_at].nil? && event
-          scans = Scan.where("event_id = ?",  event[:id])        
+          @scans = Scan.where("event_id = ?",  event[:id])        
         else
           event_ids = Event.where("department_id = ?", valid_dep[:id]).select("id")
           # Rails.logger.info(event_ids)
           # scans = Scan.find_by_event_id(event_ids)
-          scans = Scan.where("event_id IN (?)", event_ids)
+          @scans = Scan.where("event_id IN (?)", event_ids)
         end
         # Rails.logger.info("Scans: " + scans.to_su)
-        respond_with scans
+        respond_with(:api, @scans)
       end
       
       def show
-        respond_with Scan.find(params[:id])
+        @scan = Scan.find(params[:id])
+        respond_with(:api, @scan)
       end
       
       def create
-        respond_with Scan.create(params[:scan])
+        @scan = Scan.create(params[:scan])
+        respond_with(:api, @scan)
       end
       
       def update
-        respond_with Scan.update(params[:id], params[:scan])
+        @scan = Scan.update(params[:id], params[:scan])
+        respond_with(:api, @scan)
       end
       
       def destroy
-        respond_with Scan.destroy(params[:id])
+        @scan = Scan.destroy(params[:id])
+        respond_with(:api, @scan)
       end
       
       private

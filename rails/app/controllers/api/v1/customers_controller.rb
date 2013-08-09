@@ -4,23 +4,28 @@ module Api
       respond_to :json
       
       def index
-        respond_with Customer.all
+        @customer = Customer.all
+        respond_with(:api, @customer)
       end
       
       def show
-        respond_with Customer.find(params[:id])
+        @customer = Customer.find(params[:id])
+        respond_with(:api, @customer)
       end
       
       def create
-        respond_with Customer.create(params[:customer])
+        @customer = Customer.create(params[:customer])
+        respond_with(:api, @customer)
       end
       
       def update
-        respond_with Customer.update(params[:id], params[:customer])
+        @customer = Customer.update(params[:id], params[:customer])
+        respond_with(:api, @customer)
       end
       
       def destroy
-        respond_with Customer.destroy(params[:id])
+        @customer = Customer.destroy(params[:id])
+        respond_with(:api, @customer)
       end
     end
   end

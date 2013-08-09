@@ -13,30 +13,34 @@ module Api
         # events = Event.find_by_department_id_updated_after(valid_dep[:id], params[:updated_at])
         if params[:updated_at]
           updated_at_date = DateTime.strptime(params[:updated_at], '%Y-%m-%dT%H:%M:%S%z')
-          events = Event.where("department_id = ? AND updated_at > ?",  valid_dep[:id], updated_at_date)
+          @events = Event.where("department_id = ? AND updated_at > ?",  valid_dep[:id], updated_at_date)
         else
-          events = Event.where("department_id = ?",  valid_dep[:id])
+          @events = Event.where("department_id = ?",  valid_dep[:id])
         end
         # events = Event.find_by_department_id(valid_dep[:id])
-        Rails.logger.info(events)
+        #Rails.logger.info(events)
         
-        respond_with events
+        respond_with(:api, @events)
       end
       
       def show
-        respond_with Event.find(params[:id])
+        @event = Event.find(params[:id])
+        respond_with(:api, @event)
       end
       
       def create
-        respond_with Event.create(params[:event])
+        @event = Event.create(params[:event])
+        respond_with(:api, @event)
       end
       
       def update
-        respond_with Event.update(params[:id], params[:event])
+        @event = Event.update(params[:id], params[:event])
+        respond_with(:api, @event)
       end
       
       def destroy
-        respond_with Event.destroy(params[:id])
+        @event = Event.destroy(params[:id])
+        respond_with(:api, @event)
       end
       
       # private
