@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  http_basic_authenticate_with :name => 'tomtuner', :password => 'thomas828'
   def new
     @user = User.new
   end

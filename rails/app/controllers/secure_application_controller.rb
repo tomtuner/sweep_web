@@ -1,6 +1,5 @@
 class SecureApplicationController < ApplicationController
   before_filter :restrict_access
-  
   private
 
     def restrict_access
