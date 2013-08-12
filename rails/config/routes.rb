@@ -2,9 +2,9 @@ require 'api_constraints'
 
 Sweep::Application.routes.draw do
 
-  get "log_out" => "sessions#destroy", :as => "log_out"
-  get "log_in" => "sessions#new", :as => "log_in"
-  get "sign_up" => "users#new", :as => "sign_up"
+  #get "log_out" => "sessions#destroy", :as => "log_out"
+  #get "log_in" => "sessions#new", :as => "log_in"
+  #get "sign_up" => "users#new", :as => "sign_up"
 
 	namespace :api, :defaults => {:format => 'json'} do
 		scope :module => :v1, :constraints => ApiConstraints.new(:version => 1, :default => true) do
@@ -24,8 +24,8 @@ Sweep::Application.routes.draw do
   #resources :customers
   #resources :departments
   #resources :department_validation
-	resources :users
-  resources :sessions
-	root :to => 'sessions#new'
-
+	#resources :users
+  #resources :sessions
+	#root :to => 'sessions#new'
+  root :to => proc { [404, {}, ['']] }
 end
