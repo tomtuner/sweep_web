@@ -1,18 +1,15 @@
 <h1>Accounts</h1>
 
-<% if current_user %>
-	<p>Your Logged In!</p>
-	<% if @departments %>
-		<% if @departments.count > 1 %>
+<% if @departments %>
+	<% if @departments.count > 1 %>
 		<% @departments.each do |d| %>
-			<p>Departmentsss</p>
+			<p><%= d.name %></p>
 		      <!-- Product.adjust_qtys(p['old_qty_shipped'], p['qty_shipped'], p['product_id']) -->
-		    <% end %>
-		<% end %>
+	    <% end %>
+	<% elsif @departments.count == 1 %>
+		<% @events.each do |e| %>
+			<p><%= e.name %></p>
+		      <!-- Product.adjust_qtys(p['old_qty_shipped'], p['qty_shipped'], p['product_id']) -->
+	    <% end %>
 	<% end %>
-<% else %>
-<!-- Redirect to Log in if current not logged in -->
-<script type="text/javascript">
-    window.location.href="/log_in"  // put your correct path in a string here
-  </script>
 <% end %>
