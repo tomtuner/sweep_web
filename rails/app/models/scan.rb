@@ -9,6 +9,10 @@ class Scan < ActiveRecord::Base
   
   after_find :decrypt_value
   
+  def self.total_on(departmentID, date)
+    where("date(created_at) = ?", date).count
+  end
+  
   def decrypt_value
     if self.value
       password = '9KumsgtpsleSp!'
