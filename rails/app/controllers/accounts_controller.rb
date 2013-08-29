@@ -12,6 +12,8 @@ class AccountsController < ApplicationController
         elsif @advisors.count == 1
           @departments = Department.find(@advisors.map(&:department_id).uniq)
           @events = Event.find(:all, order: "created_at DESC", :conditions => ["department_id = ?", @departments.map(&:id)], :limit => 20)
+          @scans = Scan.where("event_id IN (?)", @events.map(&:id))
+          
         else
           
         end

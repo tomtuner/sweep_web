@@ -2,18 +2,23 @@
 <html>
 <head>
   <title>Sweep</title>
+
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag 'jquery', "application" %>
+  <%= javascript_include_tag "jquery", "application" %>
   <%= csrf_meta_tags %>
+
+  <script language="javascript" type="text/javascript" src="/assets/flot/jquery.flot.min.js"></script>
   <script language="javascript" type="text/javascript" src="/assets/flot/jquery.flot.min.js"></script>
   <script language="javascript" type="text/javascript" src="/assets/flot/jquery.flot.time.js"></script>
-  
 </head>
 <body>
 
 <div id="user_nav">
 	<% if current_user %>
-		Logged in as <%= current_user.email %>
+		<%= current_user.email %>
+		<% if current_user.administrator == true %>
+			<a><span>Admin</span></a>
+		<% end %>
 		<%= link_to "Log out", log_out_path%>
 	<% else %>
 		<%= link_to "Sign up", sign_up_path %>
