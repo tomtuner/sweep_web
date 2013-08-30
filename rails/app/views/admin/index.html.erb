@@ -1,2 +1,18 @@
-<h1>Admin#index</h1>
-<p>Find me in app/views/admin/index.html.erb</p>
+<h1>Administration</h1>
+<% if @departments.count > 1 %>
+	<h2>Current Departments</h2>
+	<table border="1">
+	<tr>
+	<th>Department Name</th>
+	<th>Department Key</th>
+	<th>Date Created</th>
+	</tr>
+	<% @departments.each do |d| %>
+		<tr>
+		<td><%= d.name %></td>		
+		<td><%= d.valid_key %></td>
+		<td><%= l d.created_at, :format => :short %></td>
+		</tr>
+    <% end %>
+	</table>
+<% end %>

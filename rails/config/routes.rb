@@ -14,7 +14,7 @@ Sweep::Application.routes.draw do
       resources :customers
       resources :departments
       resources :department_validation
-      get 'department_validation/index', to: 'department_validation#create'
+      get 'department_validation/create', to: 'department_validation#index'
       
 		end
 	end
