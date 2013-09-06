@@ -16,3 +16,25 @@
     <% end %>
 	</table>
 <% end %>
+<%= link_to "Add Department", controller: "departments", action: "new" %>
+
+<% if @advisors.count > 1 %>
+	<h2>Current Advisors</h2>
+	<table border="1">
+	<tr>
+	<th>Advisor Email</th>
+	<th>Department Name</th>
+	<th>Date Created</th>
+	</tr>
+	<% @advisors.each do |a| %>
+	<% department = Department.find(a.department_id) %>
+	<% user = User.find(a.user_id) %>
+		<tr>
+		<td><%= user.email %></td>		
+		<td><%= department.name %></td>
+		<td><%= l a.created_at, :format => :short %></td>
+		</tr>
+    <% end %>
+	</table>
+<% end %>
+<%= link_to "Assign Advisor", controller: "advisors", action: "new" %>

@@ -10,6 +10,16 @@
   <%= @event.department_id %>
 </p>
 
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<table border="1">
+<tr>
+<th>Scan Value</th>
+<th>Date Scanned</th>
+</tr>
+<% @scans.reverse.each do |s| %>
+	<tr>	
+	<td><%= s.value %></td>
+	<td><%= l s.scanned_at, :format => :long %></td>
+	</tr>
+<% end %>
+</table>
+	

@@ -11,10 +11,9 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :customer_id %><br />
-    <%= f.number_field :customer_id %>
-  </div>
+  <!-- <div class="field">
+ 	 <%= f.collection_select(:customer_id, @customers, :id, :name, {prompt: "Select a Customer"}) %> <br />
+  </div> -->
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>

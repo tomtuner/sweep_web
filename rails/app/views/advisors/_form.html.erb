@@ -1,0 +1,23 @@
+<%= form_for(@advisor) do |f| %>
+  <% if @advisor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@advisor.errors.count, "error") %> prohibited this department from being saved:</h2>
+
+      <ul>
+      <% @advisor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+ 	 <%= f.collection_select(:user_id, @users, :id, :email, {prompt: "Select a User"}) %> <br />
+  </div>
+  <div class="field">
+ 	 <%= f.collection_select(:department_id, @departments, :id, :name, {prompt: "Select a Department"}) %> <br />
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

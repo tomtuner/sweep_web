@@ -23,12 +23,12 @@ Sweep::Application.routes.draw do
 
  #get "scans/index"
  
-	#resources :events
+  resources :events
 	#resources :scans, :only =>[:create]
   #resources :customers
-  #resources :departments
+  resources :departments
   #resources :department_validation
-  # resources :advisors
+  resources :advisors
   resources :admin
   resources :accounts
   resources :password_resets

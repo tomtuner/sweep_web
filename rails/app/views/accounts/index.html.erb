@@ -19,9 +19,9 @@
 				@chart_values = '['
 				(1.month.ago.to_date..Date.today).each do |date|
 					if date == Date.today
-						@chart_values = @chart_values + '[' + date.to_time.to_i.to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + ']'
+						@chart_values = @chart_values + '[' + (date.to_time.to_i*1000).to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + ']'
 					else
-						@chart_values = @chart_values + '[' + date.to_time.to_i.to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + '],'
+						@chart_values = @chart_values + '[' + (date.to_time.to_i*1000).to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + '],'
 					end
 				end
 				@chart_values.gsub(/\,$/, '')
@@ -73,16 +73,30 @@
 				xaxis: {
 				    mode: "time",
 				    timeformat: "%m/%d",
-				    // tickSize: [1, "day"],
+				    tickSize: [5, "day"],
 				    // color: "black",       
 				    axisLabel: "Date",
-				    // axisLabelUseCanvas: true
-				    // axisLabelFontSizePixels: 12,
-				    // axisLabelFontFamily: 'Verdana, Arial',
-				    // axisLabelPadding: 10
+				    axisLabelUseCanvas: true,
+				    axisLabelFontSizePixels: 12,
+				    axisLabelFontFamily: 'Verdana, Arial',
+				    axisLabelPadding: 10
+				},
+				grid: {
+					hoverable: true
 				}
 			};
+			
 			$.plot($("#placeholder"), dataset, options);
+						$("<div id='tooltip'>" + contents + "</div>").css({
+							position: "absolute",
+							display: "none",
+							top: y + 5,
+							left: x + 5,
+							border: "1px solid #fdd",
+							padding: "2px",
+							"background-color": "#fee",
+							opacity: 0.80
+						}).appendTo("body").fadeIn(200);
 		});
 		</script>
 		<table border="1">
