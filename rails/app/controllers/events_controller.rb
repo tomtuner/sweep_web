@@ -35,10 +35,12 @@ class EventsController < ApplicationController
       return
     end
     
-    @scans = Scan.find_all_by_event_id(@event[:id])
+    @scans = Scan.where("event_id = ?", @event[:id])
     
     respond_to do |format|
       format.html # show.html.erb
+      format.csv { send_data @scans.to_csv }
+      format.xls
       format.json { render :json => @event }
     end
   end

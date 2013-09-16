@@ -4,12 +4,10 @@
   <b>Name:</b>
   <%= @event.name %>
 </p>
-
 <p>
-  <b>Department:</b>
-  <%= @event.department_id %>
+  Download:
+  <%= link_to "Excel", :anchor => "wall", format: "xls" %>
 </p>
-
 <table border="1">
 <tr>
 <th>Scan Value</th>

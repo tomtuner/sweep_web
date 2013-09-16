@@ -19,5 +19,11 @@ class AccountsController < ApplicationController
         end
       end
     end
+    
+    respond_to do |format|
+      format.html
+      format.csv { send_data @scans.to_csv }
+      format.xls
+    end
   end
 end
