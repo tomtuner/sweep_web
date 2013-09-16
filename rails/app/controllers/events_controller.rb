@@ -15,6 +15,26 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @department = Department.find(@event[:department_id])
+    @advisors = Advisor.find_all_by_user_id(current_user[:id])
+    @good_user = 0
+    if @advisors.count > 0
+      @advisors.each do |a|
+        if a.department_id == @event.department_id
+          if a.user_id == current_user.id
+            @good_user = 1
+          end
+        end
+      end
+    else
+      redirect_to root_path
+      return
+    end
+    
+    if @good_user == 0
+      redirect_to root_path
+      return
+    end
+    
     @scans = Scan.find_all_by_event_id(@event[:id])
     
     respond_to do |format|

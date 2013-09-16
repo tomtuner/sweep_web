@@ -108,7 +108,7 @@
 		</tr>
 		<% @events.each do |e| %>
 			<tr>
-			<td><%= e.name %></td>
+			<td><%= link_to e.name, controller: "events", action: "show", id: e.id %></td>
 			<% event_scans = @scans.select{ |s| s.event_id == e.id } %>
 			
 			<td><%= event_scans.size %></td>
