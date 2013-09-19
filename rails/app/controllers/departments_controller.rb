@@ -1,4 +1,7 @@
 class DepartmentsController < ApplicationController
+  
+  before_filter :require_login
+  
   # GET /departments
   # GET /departments.json
   def index
@@ -25,7 +28,8 @@ class DepartmentsController < ApplicationController
   # GET /departments/new.json
   def new
     @department = Department.new
-
+    @customers = Customer.all
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @department }
@@ -41,10 +45,10 @@ class DepartmentsController < ApplicationController
   # POST /departments.json
   def create
     @department = Department.new(params[:department])
-
+    @department[:customer_id] = current_user[:customer_id]
     respond_to do |format|
       if @department.save
-        format.html { redirect_to @department, :notice => 'Department was successfully created.' }
+        format.html { redirect_to controller: "admin", action: "index" }
         format.json { render :json => @department, :status => :created, :location => @department }
       else
         format.html { render :action => "new" }

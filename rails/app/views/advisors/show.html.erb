@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User ID:</b>
+  <%= @advisor.customer_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @advisor.name %>
+</p>
+
+<p>
+  <b>Valid key:</b>
+  <%= @advisor.valid_key %>
+</p>
+
+
+<%= link_to 'Edit', edit_department_path(@department) %> |
+<%= link_to 'Back', departments_path %>

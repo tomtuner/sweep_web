@@ -1,28 +1,52 @@
-<h1>Sign Up</h1>
+<div class="page-fold">
+	<div class="row">
+		<div class="centered">
+			<section>
+				<h1>Sign Up</h1>
 
-<%= form_for @user do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% for message in @user.errors.full_messages %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <p>
-	 <%= f.label :email %> <br />
-	 <%= f.text_field :email %> <br />
-  </p>
-  <p>
-	 <%= f.label :password %> <br />
-	 <%= f.password_field :password %> <br />
-  </p>
-  <p>
-	 <%= f.label :password_confirmation %> <br />
-	 <%= f.password_field :password_confirmation %> <br />
-  </p>
+				<%= form_for @user do |f| %>
+				  <% if @user.errors.any? %>
+				    <div class="error_messages">
+				      <h2>Form is invalid</h2>
+				      <ul>
+				        <% for message in @user.errors.full_messages %>
+				          <li><%= message %></li>
+				        <% end %>
+				      </ul>
+				    </div>
+				  <% end %>
+				  <p>
+					 <%= f.label :first_name %> <br />
+					 <%= f.text_field :first_name %> <br />
+				  </p>
+				  <p>
+					 <%= f.label :last_name %> <br />
+					 <%= f.text_field :last_name %> <br />
+				  </p>
+				  <p>
+					 <%= f.label :email %> <br />
+					 <%= f.text_field :email %> <br />
+				  </p>
+				  <p>
+					 <%= f.label :password %> <br />
+					 <%= f.password_field :password %> <br />
+				  </p>
+				  <p>
+					 <%= f.label :password_confirmation %> <br />
+					 <%= f.password_field :password_confirmation %> <br />
+				  </p>
+				  <p>
+					 <%= f.collection_select(:customer_id, @customers, :id, :name, {prompt: "Select a Customer"}) %> <br />
+				  </p>
+				  <p>
+					 <%= f.label :administrator %> <br />
+					 <%= f.check_box :administrator %> <br />
+				  </p>
   
-  <p class="button"><%= f.submit %></p>
-<% end %>  
+				  <p class="button"><%= f.submit %></p>
+				<% end %>
+			</section>
+		</div>
+	</div>
+</div>
+	

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/Kjarrigan/flot-rails.git
+  revision: c20cf50084856963f8554c762dd44cbb4a156c97
+  specs:
+    flot-rails (0.0.4)
+      jquery-rails (>= 2.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -64,6 +71,9 @@ GEM
     jquery-rails (3.0.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.0.4)
+      jquery-rails
+      railties (>= 3.1.0)
     json (1.8.0)
     libv8 (3.11.8.17)
     listen (1.2.1)
@@ -148,8 +158,10 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   execjs
   factory_girl_rails
+  flot-rails!
   guard-test
   jquery-rails
+  jquery-ui-rails
   json
   mysql2
   rails (= 3.2.13)

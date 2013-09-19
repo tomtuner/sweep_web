@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Events Title</Data></Cell>
+        <Cell><Data ss:Type="String">Total Attendees</Data></Cell>
+        <Cell><Data ss:Type="String">Unique Attendees</Data></Cell>
+        <Cell><Data ss:Type="String">Date Created</Data></Cell>
+      </Row>
+  	<% @events.each do |e| %>
+		<% event_scans = @scans.select{ |s| s.event_id == e.id } %>
+	
+      <Row>
+        <Cell><Data ss:Type="String"><%= e.name %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= event_scans.size %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= event_scans.uniq{ |es| es.value }.size %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= l e.created_at, :format => :short %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

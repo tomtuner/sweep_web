@@ -1,0 +1,134 @@
+<div class="page-fold">
+	<div class="row">
+		<div class="centered">
+			<section>
+<% if @departments %>
+	<% if @departments.count > 1 %>
+		<% @departments.each do |d| %>
+			<p><%= d.name %></p>
+	    <% end %>
+	<% elsif @departments.count == 1 %>
+		<% @departments.each do |d| %>
+			<h1><%= d.name %></h1>
+   		<% end %>
+	
+		<!-- <div id="placeholder" style="width:600px;height:300px"></div> -->
+		<script>
+		$(document).ready(function(){
+			var dataFinal = new Array();
+			
+			var data1 = 
+			<%= 
+				@chart_values = '['
+				(1.month.ago.to_date..Date.today).each do |date|
+					if date == Date.today
+						@chart_values = @chart_values + '[' + (date.to_time.to_i*1000).to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + ']'
+					else
+						@chart_values = @chart_values + '[' + (date.to_time.to_i*1000).to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + '],'
+					end
+				end
+				@chart_values.gsub(/\,$/, '')
+				@chart_values = @chart_values + ']'
+			 %>;
+			 
+			
+			
+
+			/*for (var i = 0; i < data2.length; i++)
+			{
+			data2[i] = data2[i].replace(/&quot;/g, function (m, p) { 
+    return "-";
+  });
+}
+			for (var i = 0; i < data1.length; i++)
+			{
+				dataFinal.push(new Array(data2[i], data1[i]));
+			}
+			// console.log(dataFinal);
+			
+			// for (var i = 0; i < data1.length; i++){
+				// console.log(dataFinal[i]);
+			// }
+			    // [gd(2013, 1, 2), 0], [gd(2013, 1, 3), 0.25], [gd(2013, 1, 4), 1]];*/
+			var dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
+			
+			function gd(year, month, day) {
+				return new Date(year, month - 1, day).getTime();
+			}
+			var dataset = [
+			    {
+			        // label: "Sell out",
+			        data: data1,
+			        color: "#FF0000",
+			        points: { fillColor: "#FF0000", show: true },
+			        lines: { show: true },
+			        points: { show: true }
+			    }];
+			var options = {
+				yaxis: {
+				    color: "black",
+				    axisLabel: "Gross Attendees",
+				    // axisLabelUseCanvas: true,
+				    axisLabelFontSizePixels: 18,
+				    axisLabelFontFamily: 'Verdana, Arial',
+				    axisLabelPadding: 5
+				},
+				xaxis: {
+				    mode: "time",
+				    timeformat: "%m/%d",
+				    tickSize: [5, "day"],
+				    // color: "black",       
+				    axisLabel: "Date",
+				    axisLabelUseCanvas: true,
+				    axisLabelFontSizePixels: 12,
+				    axisLabelFontFamily: 'Verdana, Arial',
+				    axisLabelPadding: 10
+				},
+				grid: {
+					hoverable: true
+				}
+			};
+			
+			$.plot($("#placeholder"), dataset, options);
+						$("<div id='tooltip'>" + contents + "</div>").css({
+							position: "absolute",
+							display: "none",
+							top: y + 5,
+							left: x + 5,
+							border: "1px solid #fdd",
+							padding: "2px",
+							"background-color": "#fee",
+							opacity: 0.80
+						}).appendTo("body").fadeIn(200);
+		});
+		</script>
+		</section>
+		<section class="sw-table">
+			<div>
+			  Download:
+			  <%= link_to "Excel", accounts_path(format: "xls") %>
+			</div>
+			<table border="1">
+			<tr>
+			<th>Event Title</th>
+			<th>Total Attendees</th>
+			<th>Unique Attendees</th>
+			<th>Date Created</th>
+			</tr>
+			<% @events.each do |e| %>
+				<tr>
+				<td><%= link_to e.name, controller: "events", action: "show", id: e.id %></td>
+				<% event_scans = @scans.select{ |s| s.event_id == e.id } %>
+			
+				<td><%= event_scans.size %></td>
+				<td><%= event_scans.uniq{ |es| es.value }.size %></td>
+				<td><%= l e.created_at, :format => :short %></td>
+				</tr>
+		   	 <% end %>
+			</table>
+		<% end %>
+<% end %>
+	</section>
+	</div>
+	</div>
+</div>

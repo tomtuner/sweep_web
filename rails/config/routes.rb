@@ -2,9 +2,13 @@ require 'api_constraints'
 
 Sweep::Application.routes.draw do
 
-  #get "log_out" => "sessions#destroy", :as => "log_out"
-  #get "log_in" => "sessions#new", :as => "log_in"
-  #get "sign_up" => "users#new", :as => "sign_up"
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "sign_up" => "users#new", :as => "sign_up"
+  
+  get "password" => "password_resets#index"
+  
+  # get '/department_validation#index', to: 'department_validation#create'
 
 	namespace :api, :defaults => {:format => 'json'} do
 		scope :module => :v1, :constraints => ApiConstraints.new(:version => 1, :default => true) do
@@ -13,19 +17,23 @@ Sweep::Application.routes.draw do
       resources :customers
       resources :departments
       resources :department_validation
+      get 'department_validation/create', to: 'department_validation#index'
 		end
 	end
 		
 
  #get "scans/index"
  
-	#resources :events
+  resources :events, only: [:index, :show]
 	#resources :scans, :only =>[:create]
-  #resources :customers
-  #resources :departments
+  resources :customers, only: [:new, :create]
+  resources :departments
   #resources :department_validation
-	#resources :users
-  #resources :sessions
-	#root :to => 'sessions#new'
-  root :to => proc { [404, {}, ['']] }
+  resources :advisors
+  resources :admin
+  resources :accounts
+  resources :password_resets
+  resources :users
+  resources :sessions
+  root :to => 'accounts#index'
 end

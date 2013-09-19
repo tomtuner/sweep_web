@@ -9,6 +9,18 @@ class Scan < ActiveRecord::Base
   
   after_find :decrypt_value
   
+  def self.total_on(departmentID, date)
+    where("date(created_at) = ?", date).count
+  end
+  
+  def self.to_csv
+    CSV.generate do |csv|
+      all.each do |scan|
+        csv << [scan.value]
+      end
+    end
+  end
+  
   def decrypt_value
     if self.value
       password = '9KumsgtpsleSp!'

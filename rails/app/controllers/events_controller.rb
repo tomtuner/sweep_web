@@ -14,9 +14,33 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-
+    @department = Department.find(@event[:department_id])
+    @advisors = Advisor.find_all_by_user_id(current_user[:id])
+    @good_user = 0
+    if @advisors.count > 0
+      @advisors.each do |a|
+        if a.department_id == @event.department_id
+          if a.user_id == current_user.id
+            @good_user = 1
+          end
+        end
+      end
+    else
+      redirect_to root_path
+      return
+    end
+    
+    if @good_user == 0
+      redirect_to root_path
+      return
+    end
+    
+    @scans = Scan.where("event_id = ?", @event[:id])
+    
     respond_to do |format|
       format.html # show.html.erb
+      format.csv { send_data @scans.to_csv }
+      format.xls
       format.json { render :json => @event }
     end
   end
