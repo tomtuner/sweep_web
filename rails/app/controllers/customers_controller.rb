@@ -1,4 +1,6 @@
 class CustomersController < ApplicationController
+  http_basic_authenticate_with :name => 'SweepEvents', :password => 'SweepEvents9'
+  
   # GET /customers
   # GET /customers.json
   def index
@@ -44,7 +46,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to @customer, :notice => 'Customer was successfully created.' }
+        format.html { redirect_to root_url, :notice => 'Customer was successfully created.' }
         format.json { render :json => @customer, :status => :created, :location => @customer }
       else
         format.html { render :action => "new" }
@@ -60,7 +62,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.update_attributes(params[:customer])
-        format.html { redirect_to @customer, :notice => 'Customer was successfully updated.' }
+        format.html { redirect_to root_url, :notice => 'Customer was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

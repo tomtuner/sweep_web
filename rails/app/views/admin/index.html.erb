@@ -1,6 +1,13 @@
+<div class="page-fold">
+	<div class="row">
+		<div class="centered">
+			<section>
+				
 <h1>Administration</h1>
-<% if @departments.count > 1 %>
-	<h2>Current Departments</h2>
+<% if @departments.count > 0 %>
+	<h3>Current Departments</h3>
+	</section>
+	<section class="sw-table">
 	<table border="1">
 	<tr>
 	<th>Department Name</th>
@@ -17,9 +24,11 @@
 	</table>
 <% end %>
 <%= link_to "Add Department", controller: "departments", action: "new" %>
+</section>
 
-<% if @advisors.count > 1 %>
-	<h2>Current Advisors</h2>
+<% if @advisors.count > 0 %>
+	<h3>Current Advisors</h3>
+	<section class="sw-table">
 	<table border="1">
 	<tr>
 	<th>Advisor Email</th>
@@ -38,3 +47,8 @@
 	</table>
 <% end %>
 <%= link_to "Assign Advisor", controller: "advisors", action: "new" %>
+			</section>
+		</div>
+	</div>
+</div>
+	

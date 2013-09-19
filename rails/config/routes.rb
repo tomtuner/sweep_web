@@ -6,6 +6,8 @@ Sweep::Application.routes.draw do
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
   
+  get "password" => "password_resets#index"
+  
   # get '/department_validation#index', to: 'department_validation#create'
 
 	namespace :api, :defaults => {:format => 'json'} do
@@ -16,16 +18,15 @@ Sweep::Application.routes.draw do
       resources :departments
       resources :department_validation
       get 'department_validation/create', to: 'department_validation#index'
-      
 		end
 	end
 		
 
  #get "scans/index"
  
-  resources :events
+  resources :events, only: [:index, :show]
 	#resources :scans, :only =>[:create]
-  #resources :customers
+  resources :customers, only: [:new, :create]
   resources :departments
   #resources :department_validation
   resources :advisors

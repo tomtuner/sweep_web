@@ -1,6 +1,11 @@
 class PasswordResetsController < ApplicationController
-  def new
-    
+  skip_before_filter :require_login, only: [:index, :update]
+  
+  def index
+    @user = current_user
+    if !@user
+      redirect_to root_url, notice: "Please log in before changing your password."
+    end
   end
   
   def create

@@ -1,5 +1,7 @@
 class AdvisorsController < ApplicationController
   
+  before_filter :require_login
+  
   def new
     @advisor = Advisor.new
     @users = User.find_all_by_customer_id(current_user[:customer_id])

@@ -1,23 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class="page-fold">
+	<div class="row">
+		<div class="centered">
+			<section>
+  			  <h1><%= @event.name %></h1>
+			  <h3><%= @department.name %></h3>
+			<div>
+			  Download:
+			  <%= link_to "Excel", :anchor => "wall", format: "xls" %>
+			  <%= link_to "CSV", :anchor => "wall", format: "csv" %>
 
-<p>
-  <b>Name:</b>
-  <%= @event.name %>
-</p>
-<p>
-  Download:
-  <%= link_to "Excel", :anchor => "wall", format: "xls" %>
-</p>
-<table border="1">
-<tr>
-<th>Scan Value</th>
-<th>Date Scanned</th>
-</tr>
-<% @scans.reverse.each do |s| %>
-	<tr>	
-	<td><%= s.value %></td>
-	<td><%= l s.scanned_at, :format => :long %></td>
-	</tr>
-<% end %>
-</table>
+			</div>
+			</section>
+			<section class="sw-table">
+			<table border="1">
+			<tr>
+			<th>Scan Value</th>
+			<th>Date Scanned</th>
+			</tr>
+			<% @scans.reverse.each do |s| %>
+				<tr>	
+				<td><%= s.value %></td>
+				<td><%= l s.scanned_at, :format => :long %></td>
+				</tr>
+			<% end %>
+			</table>
+			</section>
+		</div>
+	</div>
+</div>
 	

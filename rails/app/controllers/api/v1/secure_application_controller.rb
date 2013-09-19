@@ -1,6 +1,7 @@
 module Api
   module V1
     class SecureApplicationController < ApplicationController
+      # skip_before_filter :require_login
       before_filter :restrict_access
       private
 

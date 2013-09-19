@@ -1,4 +1,7 @@
-
+<div class="page-fold">
+	<div class="row">
+		<div class="centered">
+			<section>
 <% if @departments %>
 	<% if @departments.count > 1 %>
 		<% @departments.each do |d| %>
@@ -7,9 +10,9 @@
 	<% elsif @departments.count == 1 %>
 		<% @departments.each do |d| %>
 			<h1><%= d.name %></h1>
-    <% end %>
+   		<% end %>
 	
-		<div id="placeholder" style="width:600px;height:300px"></div>
+		<!-- <div id="placeholder" style="width:600px;height:300px"></div> -->
 		<script>
 		$(document).ready(function(){
 			var dataFinal = new Array();
@@ -99,28 +102,33 @@
 						}).appendTo("body").fadeIn(200);
 		});
 		</script>
-		<p>
-		  Download:
-		  <%= link_to "Excel", accounts_path(format: "xls") %>
-		</p>
-		<table border="1">
-		<tr>
-		<th>Event Title</th>
-		<th>Total Attendees</th>
-		<th>Unique Attendees</th>
-		<th>Date Created</th>
-		</tr>
-		<% @events.each do |e| %>
+		</section>
+		<section class="sw-table">
+			<div>
+			  Download:
+			  <%= link_to "Excel", accounts_path(format: "xls") %>
+			</div>
+			<table border="1">
 			<tr>
-			<td><%= link_to e.name, controller: "events", action: "show", id: e.id %></td>
-			<% event_scans = @scans.select{ |s| s.event_id == e.id } %>
-			
-			<td><%= event_scans.size %></td>
-			<td><%= event_scans.uniq{ |es| es.value }.size %></td>
-			<td><%= l e.created_at, :format => :short %></td>
+			<th>Event Title</th>
+			<th>Total Attendees</th>
+			<th>Unique Attendees</th>
+			<th>Date Created</th>
 			</tr>
-	    <% end %>
-	</table>
-		
-	<% end %>
+			<% @events.each do |e| %>
+				<tr>
+				<td><%= link_to e.name, controller: "events", action: "show", id: e.id %></td>
+				<% event_scans = @scans.select{ |s| s.event_id == e.id } %>
+			
+				<td><%= event_scans.size %></td>
+				<td><%= event_scans.uniq{ |es| es.value }.size %></td>
+				<td><%= l e.created_at, :format => :short %></td>
+				</tr>
+		   	 <% end %>
+			</table>
+		<% end %>
 <% end %>
+	</section>
+	</div>
+	</div>
+</div>
