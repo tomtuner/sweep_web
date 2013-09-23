@@ -2,9 +2,9 @@ class AccountsController < ApplicationController
   def index
     @user = current_user
     if @user
-      if @user[:administrator] == 1
+      # if @user[:administrator] == 1
         # User is an administrator
-      else
+      # else
         #User is not an administrator
         @advisors = Advisor.find_all_by_user_id(@user[:id])
         if @advisors.count > 1
@@ -17,7 +17,7 @@ class AccountsController < ApplicationController
         else
           
         end
-      end
+      # end
     end
     
     respond_to do |format|
