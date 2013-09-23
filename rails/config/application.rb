@@ -54,6 +54,9 @@ module Sweep
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
+    config.time_zone = 'Eastern Time (US & Canada)'
+    config.active_record.default_timezone = 'Eastern Time (US & Canada)'
+    
     # Enable the asset pipeline
     config.assets.enabled = true
 
