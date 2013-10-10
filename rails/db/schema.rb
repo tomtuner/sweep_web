@@ -11,14 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812184401) do
+ActiveRecord::Schema.define(:version => 20131009160959) do
 
   create_table "advisors", :force => true do |t|
     t.integer  "user_id"
     t.integer  "department_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "customer_id"
   end
+
+  add_index "advisors", ["user_id"], :name => "user_id_key"
 
   create_table "api_keys", :force => true do |t|
     t.string   "access_token"
@@ -49,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20130812184401) do
     t.integer  "department_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.datetime "starts_at"
+    t.datetime "ends_at"
   end
 
   create_table "scans", :force => true do |t|
@@ -65,8 +70,15 @@ ActiveRecord::Schema.define(:version => 20130812184401) do
     t.string   "email"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "customer_id"
+    t.boolean  "administrator"
+    t.string   "auth_token"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
 end

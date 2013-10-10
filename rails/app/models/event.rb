@@ -4,6 +4,6 @@ class Event < ActiveRecord::Base
   validates_associated :department, :scans
   validates :department_id, :presence => true
   validates :name, :presence => true
-  attr_accessible :department_id, :name
+  attr_accessible :department_id, :name, :starts_at, :ends_at
   
 end

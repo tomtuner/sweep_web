@@ -1,5 +1,5 @@
 module Api
-  module V1
+  module V2
     class EventsController < SecureApplicationController
       before_filter :check_department_key
       respond_to :json
@@ -20,27 +20,27 @@ module Api
         # events = Event.find_by_department_id(valid_dep[:id])
         #Rails.logger.info(events)
         
-        respond_with(:api, @events, :except => [:starts_at, :ends_at])
+        respond_with(:api, @events)
       end
       
       def show
         @event = Event.find(params[:id])
-        respond_with(:api, @event, :except => [:starts_at, :ends_at])
+        respond_with(:api, @event)
       end
       
       def create
         @event = Event.create(params[:event])
-        respond_with(:api, @event, :except => [:starts_at, :ends_at])
+        respond_with(:api, @event)
       end
       
       def update
         @event = Event.update(params[:id], params[:event])
-        respond_with(:api, @event, :except => [:starts_at, :ends_at])
+        respond_with(:api, @event)
       end
       
       def destroy
         @event = Event.destroy(params[:id])
-        respond_with(:api, @event, :except => [:starts_at, :ends_at])
+        respond_with(:api, @event)
       end
       
       # private
