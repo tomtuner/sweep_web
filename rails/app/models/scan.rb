@@ -5,9 +5,9 @@ class Scan < ActiveRecord::Base
   validates :event_id, :presence => true
   
   attr_protected :encrypted_key, :encrypted_iv
-  before_save :encrypt_value
+  before_save :encrypt_value_with_pass
   
-  after_find :decrypt_value
+  after_find :decrypt_value_with_pass
   
   def self.total_on(departmentID, date)
     where("date(created_at) = ?", date).count
@@ -19,6 +19,28 @@ class Scan < ActiveRecord::Base
         csv << [scan.value]
       end
     end
+  end
+  
+  def decrypt_value_with_pass
+    password = '9KumsgtpsleSp!'
+        
+    decrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
+    decrypter.decrypt
+    decrypter.pkcs5_keyivgen(password)
+    
+    self.value = decrypter.update(self.value)
+    self.value << decrypter.final
+    
+  end
+  
+  def decrypt_value_with_key
+    password = '9KumsgtpsleSp!'
+    private_key = OpenSSL::PKey::RSA.new(File.read(APP_CONFIG['private_key']), password)
+    self.value = private_key.private_decrypt(self.value)
+    
+    self.encrypted_key = nil
+    self.encrypted_iv = nil
+    
   end
   
   def decrypt_value
@@ -45,6 +67,27 @@ class Scan < ActiveRecord::Base
   end
   
   private
+  
+  def encrypt_value_with_pass
+    password = '9KumsgtpsleSp!'
+    
+    encrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
+    encrypter.encrypt
+    encrypter.pkcs5_keyivgen password
+    
+    # self.value = public_key.public_encrypt(self.value)
+    # 
+    self.value = encrypter.update(self.value)
+    self.value << encrypter.final
+    
+  end
+  
+  def encrypt_value_with_key
+    public_key = OpenSSL::PKey::RSA.new(File.read(APP_CONFIG['public_key']))
+    self.value = public_key.public_encrypt(self.value)
+    
+  end
+  
   def encrypt_value
      public_key = OpenSSL::PKey::RSA.new(File.read(APP_CONFIG['public_key']))
      cipher = OpenSSL::Cipher::Cipher.new('aes-256-cbc')
