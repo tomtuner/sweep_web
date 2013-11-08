@@ -13,6 +13,7 @@
    		<% end %>
 	
 		<!-- <div id="placeholder" style="width:600px;height:300px"></div> -->
+		<!-- 
 		<script>
 		$(document).ready(function(){
 			var dataFinal = new Array();
@@ -102,6 +103,7 @@
 						}).appendTo("body").fadeIn(200);
 		});
 		</script>
+			-->
 		</section>
 		<section class="sw-table">
 			<div>
@@ -113,7 +115,7 @@
 			<th>Event Title</th>
 			<th>Total Attendees</th>
 			<th>Unique Attendees</th>
-			<th>Date Created</th>
+			<th>Event Date</th>
 			</tr>
 			<% @events.each do |e| %>
 				<tr>
@@ -122,7 +124,7 @@
 			
 				<td><%= event_scans.size %></td>
 				<td><%= event_scans.uniq{ |es| es.value }.size %></td>
-				<td><%= l e.created_at, :format => :short %></td>
+				<td><%= l e.starts_at, :format => :short %></td>
 				</tr>
 		   	 <% end %>
 			</table>

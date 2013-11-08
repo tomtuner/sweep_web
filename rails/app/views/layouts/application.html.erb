@@ -62,9 +62,12 @@
 		</div>
 		<!-- End of Right Header -->
 	</header>
-
-<%= yield %>
-
+	<div class="wrapper">
+	
+	<%= yield %>
+	<div class="push"></div>
+	</div>
+	<!-- End of wrapper -->
 <div class="page-fold" id="footer">
 	<div class="copy right">
 		<span>&copy <%= Time.now.year %> Kanzu LLC. All rights reserved.</span>
