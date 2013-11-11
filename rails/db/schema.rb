@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131009160959) do
+ActiveRecord::Schema.define(:version => 20131111200313) do
 
   create_table "advisors", :force => true do |t|
     t.integer  "user_id"
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(:version => 20131009160959) do
     t.binary   "encrypted_key"
     t.binary   "encrypted_iv"
   end
+
+  add_index "scans", ["event_id"], :name => "index_scans_on_event_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
