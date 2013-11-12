@@ -17,6 +17,28 @@ class DepartmentsController < ApplicationController
   # GET /departments/1.json
   def show
     @department = Department.find(params[:id])
+    @advisors = Advisor.find_all_by_user_id(current_user[:id])
+    @good_user = 0
+    if @advisors.count > 0
+      @advisors.each do |a|
+        if a.department_id == @department.id
+          if a.user_id == current_user.id
+            @good_user = 1
+          end
+        end
+      end
+    else
+      redirect_to root_path
+      return
+    end
+    
+    if @good_user == 0
+      redirect_to root_path
+      return
+    end
+    
+    @events = Event.find(:all, order: "starts_at DESC", :conditions => ["department_id = ?", @department.id], :limit => 20)
+    @scans = Scan.where("event_id IN (?)", @events.map(&:id))
 
     respond_to do |format|
       format.html # show.html.erb

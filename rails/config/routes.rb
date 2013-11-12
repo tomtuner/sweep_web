@@ -36,9 +36,9 @@ Sweep::Application.routes.draw do
   resources :events, only: [:index, :show]
 	#resources :scans, :only =>[:create]
   resources :customers, only: [:new, :create]
-  resources :departments
+  resources :departments, only: [:index, :show, :create, :new]
   #resources :department_validation
-  resources :advisors
+  resources :advisors, only: [:create, :new]
   resources :admin
   resources :accounts
   resources :password_resets

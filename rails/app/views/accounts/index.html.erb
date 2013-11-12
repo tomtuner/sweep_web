@@ -1,13 +1,32 @@
 <div class="page-fold">
 	<div class="row">
 		<div class="centered">
-			<section>
-<% if @departments %>
-	<% if @departments.count > 1 %>
-		<% @departments.each do |d| %>
-			<p><%= d.name %></p>
-	    <% end %>
+	<% if @departments %>	
+			<% if @departments.count > 1 %>
+			<h1>Select a department to view data</h1>
+			<section class="sw-table">
+				<div>
+				  <!-- Download: -->
+				</div>
+				<table border="1">
+				<tr>
+				<th>Department Name</th>
+				<!-- <th>Total Attendees</th>
+				<th>Unique Attendees</th>
+				<th>Event Date</th> -->
+				</tr>
+				<% @departments.each do |d| %>
+					<tr>
+					<td><%= link_to d.name, controller: "departments", action: "show", id: d.id %></td>
+			
+					
+					</tr>
+			   	 <% end %>
+				</table>
+			</section>
 	<% elsif @departments.count == 1 %>
+		<section>
+	
 		<% @departments.each do |d| %>
 			<h1><%= d.name %></h1>
    		<% end %>
@@ -20,16 +39,16 @@
 			
 			var data1 = 
 			<%= 
-				@chart_values = '['
-				(1.month.ago.to_date..Date.today).each do |date|
-					if date == Date.today
-						@chart_values = @chart_values + '[' + (date.to_time.to_i*1000).to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + ']'
-					else
-						@chart_values = @chart_values + '[' + (date.to_time.to_i*1000).to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + '],'
-					end
-				end
-				@chart_values.gsub(/\,$/, '')
-				@chart_values = @chart_values + ']'
+				#@chart_values = '['
+				#(1.month.ago.to_date..Date.today).each do |date|
+				#	if date == Date.today
+				#		@chart_values = @chart_values + '[' + (date.to_time.to_i*1000).to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + ']'
+				#	else
+				#		@chart_values = @chart_values + '[' + (date.to_time.to_i*1000).to_s + ', ' + (Scan.total_on( @departments[0].id, date)).to_s + '],'
+				#	end
+				#end
+				#@chart_values.gsub(/\,$/, '')
+				#@chart_values = @chart_values + ']'
 			 %>;
 			 
 			
@@ -128,9 +147,11 @@
 				</tr>
 		   	 <% end %>
 			</table>
+
+			</section>
+			<% end %>			
 		<% end %>
-<% end %>
-	</section>
+		<!-- End of big if block -->
 	</div>
 	</div>
 </div>
