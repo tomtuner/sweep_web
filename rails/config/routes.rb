@@ -32,7 +32,7 @@ Sweep::Application.routes.draw do
 		
 
  #get "scans/index"
- 
+  resources :dashboard
   resources :events, only: [:index, :show]
 	#resources :scans, :only =>[:create]
   resources :customers, only: [:new, :create]
@@ -44,5 +44,5 @@ Sweep::Application.routes.draw do
   resources :password_resets
   resources :users
   resources :sessions
-  root :to => 'accounts#index'
+  root :to => 'dashboard#index'
 end
