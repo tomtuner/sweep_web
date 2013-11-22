@@ -3,7 +3,12 @@ require "./config/environment"
       # task :warnings => :environment do
       
       # id_value = 7680004851;
-#         scan = Scan.find(12)
+        scans = Scan.all
+        scans.each do |scan|
+          scan.encrypted_key = nil
+          scan.encrypted_iv = nil
+          scan.save
+        end
 #         print "DB VALUE: " + scan.value + "\n"
 #         
 #         password = '9KumsgtpsleSp!'
@@ -12,8 +17,8 @@ require "./config/environment"
 #         decrypter.decrypt
 #         decrypter.pkcs5_keyivgen(password)
 #       
-#         scan.value = decrypter.update(scan.value)
-#         scan.value << decrypter.final
+        # scan.value = decrypter.update(scan.value)
+        # scan.value << decrypter.final
 #         print "DECRYPT DB VALUE: " + scan.value + "\n"
 #           # scan.created_at = nil          
 #           # scan.save
@@ -43,23 +48,23 @@ require "./config/environment"
 #       id_value << decrypter.final
 #       print "DECRYPT VALUE: " + id_value + "\n"
 # 
-      id_value = 768000485;  
-      
-      password = '9KumsgtpsleSp!'
-    
-      encrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
-      encrypter.encrypt
-      encrypter.pkcs5_keyivgen password
-    
-      # self.value = public_key.public_encrypt(self.value)
-      # 
-      id_value = encrypter.update(id_value.to_s)
-      id_value << encrypter.final
-      print "ENCRYPT VALUE: " + id_value + "\n"
-      
-      
-      scan = Scan.where("value = ?", id_value).all
-      print "Number of scans: " + scan.size.to_s
+      # id_value = 768000485;  
+ #      
+ #      password = '9KumsgtpsleSp!'
+ #    
+ #      encrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
+ #      encrypter.encrypt
+ #      encrypter.pkcs5_keyivgen password
+ #    
+ #      # self.value = public_key.public_encrypt(self.value)
+ #      # 
+ #      id_value = encrypter.update(id_value.to_s)
+ #      id_value << encrypter.final
+ #      print "ENCRYPT VALUE: " + id_value + "\n"
+ #      
+ #      
+ #      scan = Scan.where("value = ?", id_value).all
+ #      print "Number of scans: " + scan.size.to_s
       # print scan.id
         
       
