@@ -1,14 +1,33 @@
 <div class="page-fold">
 	<div class="row">
-		<div class="centered">
-			<section>
-				<%= @month_scans.count %>
+		<section>
+		<div class="dash">
+				<div class="first">
+					<div>
+						<div>
+						<span class="dash-descrip">Total Scans this Month</span>
+					</div>
+						<div><span class="dash-title"><%= @month_scans.count %></span></div>
+						<div class="green-arrow"></div>
+					</div>
+					</div>
+					<div class="second">
+					<div>
+						<div>
+						<span class="dash-descrip">Total Uniques this Month</span>
+						</div>
+						<div>
+						<span class="dash-title"><%= @month_scans_uniq %></span>
+						</div>
+					</div>
+				</div>
 				<!-- <svg class="chart"> -->
 			
 				<!-- </svg> -->
+			</div>
 			</section>
 			<script type="text/javascript">
-			 var scans = <6;
+			 var scans = 6;
 
 			 console.log(scans);
 
