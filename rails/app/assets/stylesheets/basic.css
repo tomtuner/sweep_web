@@ -551,7 +551,13 @@ to {top:10px; opacity: 1;}
 }
 
 
-.dash-title {
+.pt-bold {
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-weight: bold;
+	font-size: 3.5em;
+}
+
+.pt-large {
 	font-family: 'PT Sans Narrow', sans-serif;
 	font-size: 7em;
 }

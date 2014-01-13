@@ -11,7 +11,7 @@ class AccountsController < ApplicationController
           @departments = Department.find(@advisors.map(&:department_id).uniq)
         elsif @advisors.count == 1
           @department = Department.find(@advisors.first.department_id)
-          redirect_to controller: "departments", action: "show", id: @department.id
+          redirect_to controller: "departments", action: "show", id: @departments.id
           # @events = Event.find(:all, order: "starts_at DESC", :conditions => ["department_id = ?", @departments.map(&:id)], :limit => 20)
           # @scans = Scan.where("event_id IN (?)", @events.map(&:id))
           return

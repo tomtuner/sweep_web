@@ -1,29 +1,97 @@
 <div class="page-fold">
 	<div class="row">
 		<section>
-		<div class="dash">
+			<div class="dash">
+				<div class="dash-title pt-bold">
+					<span>Dashboard</span>
+				</div>
 				<div class="first">
 					<div>
 						<div>
-						<span class="dash-descrip">Total Scans this Month</span>
+						<span class="dash-descrip">Total Unique Individuals this Month</span>
+						</div>
+						<div>
+						<span class="dash-num pt-large"><%= @month_scans_uniq %></span>
+						</div>
 					</div>
-						<div><span class="dash-title"><%= @month_scans.count %></span></div>
-						<div class="green-arrow"></div>
-					</div>
-					</div>
-					<div class="second">
+		
+				</div>
+				<div class="second">
 					<div>
 						<div>
-						<span class="dash-descrip">Total Uniques this Month</span>
+						<span class="dash-descrip">Total Scans this Month</span>
 						</div>
-						<div>
-						<span class="dash-title"><%= @month_scans_uniq %></span>
-						</div>
+						<div><span class="dash-num pt-large"><%= @month_scans.count %></span></div>
+						<!-- <div class="green-arrow"></div> -->
 					</div>
 				</div>
-				<!-- <svg class="chart"> -->
+			<% if @departments %>	
+					<% if @departments.count > 1 %>
+						
+							<div class="centered">
+							
+								<h1>View a department's events</h1>
+								<section class="sw-table">
+									<div>
+									  <!-- Download: -->
+									</div>
+									<table border="1">
+									<tr>
+									<th>Department Name</th>
+									<!-- <th>Total Attendees</th>
+									<th>Unique Attendees</th>
+									<th>Event Date</th> -->
+									</tr>
+									<% @departments.each do |d| %>
+										<tr>
+										<td><%= link_to d.name, controller: "departments", action: "show", id: d.id %></td>
 			
-				<!-- </svg> -->
+					
+										</tr>
+								   	 <% end %>
+									</table>
+								</section>
+								<!-- <svg class="chart"> -->
+			
+								<!-- </svg> -->
+							</div>
+							
+						<% else %>
+						
+						<% end %>
+			<% else %>
+			
+				<div class="centered">
+					<section>
+						<h1><%= @department.name %></h1>
+					</section>
+					<section class="sw-table">
+						<div>
+						  Download:
+						  <%= link_to "Excel", accounts_path(format: "xls") %>
+						</div>
+						<table border="1">
+						<tr>
+						<th>Event Title</th>
+						<th>Total Attendees</th>
+						<th>Unique Attendees</th>
+						<th>Event Date</th>
+						</tr>
+						<% @events.each do |e| %>
+							<tr>
+							<td><%= link_to e.name, controller: "events", action: "show", id: e.id %></td>
+							<% event_scans = @scans.select{ |s| s.event_id == e.id } %>
+
+							<td><%= event_scans.size %></td>
+							<td><%= event_scans.uniq{ |es| es.value }.size %></td>
+							<td><%= l e.starts_at, :format => :short %></td>
+							</tr>
+					   	 <% end %>
+						</table>
+					</section>
+				</div>
+				
+			<% end %>
 			</div>
 			</section>
 			<script type="text/javascript">

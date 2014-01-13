@@ -6,7 +6,16 @@ class DashboardController < ApplicationController
     @month_scans = Scan.where("created_at BETWEEN ? AND ?", @beg_of_month, Time.now)
     
     @advisors = Advisor.find_all_by_user_id(current_user[:id])
+    if @advisors.count > 1
+      @departments = Department.find(@advisors.map(&:department_id).uniq)
+    elsif @advisors.count == 1
+      @department = Department.find(@advisors.first.department_id)
+    else
+      
+    end
     @events = Event.where("department_id IN (?)", @advisors.map(&:department_id))
+    @scans = Scan.where("event_id IN (?)", @events.map(&:id))
+    
     @month_scans = Scan.where("event_id IN (?) AND created_at BETWEEN ? AND ?", @events.map(&:id), @beg_of_month, Time.now)
     
     # @month_scans_uniq = 0
