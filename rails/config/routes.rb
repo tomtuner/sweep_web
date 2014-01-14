@@ -38,7 +38,7 @@ Sweep::Application.routes.draw do
   resources :customers, only: [:new, :create]
   resources :departments, only: [:index, :show, :create, :new]
   #resources :department_validation
-  resources :advisors, only: [:create, :new]
+  resources :advisors, only: [:create, :new, :destroy]
   resources :admin
   resources :accounts
   resources :password_resets

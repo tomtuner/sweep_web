@@ -18,8 +18,9 @@
 		<tr>
 		<td><%= d.name %></td>		
 		<td><%= d.valid_key %></td>
-		<td><%= l d.created_at, :format => :short %></td>
+		<td><%= l d.created_at, :format => :short %></td>		
 		</tr>
+		
     <% end %>
 	</table>
 <% end %>
@@ -42,6 +43,7 @@
 		<td><%= user.email %></td>		
 		<td><%= department.name %></td>
 		<td><%= l a.created_at, :format => :short %></td>
+		<td style="width:30px;background-color: none;"><%= button_to "X",{ controller: "advisors", action: "destroy", id: a.id}, method: :delete, data: { confirm: "Are you sure you want to remove this advisor?" } %></td>
 		</tr>
     <% end %>
 	</table>
