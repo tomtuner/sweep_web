@@ -526,6 +526,12 @@ ul.highlight {
 	text-align: center;
 }
 
+#dash-title {
+	margin-bottom: 0.6em;
+	border-bottom:thick solid #000000;
+}
+
+
 .green-arrow {
 	width: 20px;
 	height: 20px;
