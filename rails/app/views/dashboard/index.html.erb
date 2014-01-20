@@ -70,7 +70,7 @@
 					<section class="sw-table">
 						<div>
 						  Download:
-						  <%= link_to "Excel", accounts_path(format: "xls") %>
+						  <%= link_to "Excel", accounts_path(format: "xls", department_id: @department.id  ) %>
 						</div>
 						<table border="1">
 						<tr>

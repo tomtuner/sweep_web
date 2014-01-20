@@ -10,7 +10,7 @@ gem 'mysql2'
 gem 'execjs'
 gem 'therubyracer'
 
-gem "d3-rails"
+# gem "d3-rails"
 
 gem 'json'
 gem 'bcrypt-ruby', :require => 'bcrypt'
