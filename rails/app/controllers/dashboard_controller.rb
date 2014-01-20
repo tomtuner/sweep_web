@@ -13,7 +13,7 @@ class DashboardController < ApplicationController
     else
       
     end
-    @events = Event.where("department_id IN (?)", @advisors.map(&:department_id))
+    @events = Event.where("department_id IN (?)", @advisors.map(&:department_id)).order("starts_at DESC")
     @scans = Scan.where("event_id IN (?)", @events.map(&:id))
     
     @month_scans = Scan.where("event_id IN (?) AND created_at BETWEEN ? AND ?", @events.map(&:id), @beg_of_month, Time.now)

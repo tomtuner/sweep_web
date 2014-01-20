@@ -49,7 +49,7 @@
 				</div>
 				<div id="user_nav" class="inline">
 					|
-					<% if current_user.administrator == true %>
+					<% if current_user.administrator == true || current_user.administrator == 1 %>
 						<%= link_to "Admin", controller: "admin", action: "index" %>
 						|
 					<% end %>
