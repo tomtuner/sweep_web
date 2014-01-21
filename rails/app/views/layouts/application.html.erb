@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>  
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>  
   <title>Sweep</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" >
   <meta name="description" content="Sweep is a tracking and analytics platform for universities and colleges to better understand student engagement on campus.  Sweep captures and displays valuable information about a campus, which can be viewed in a simple and easy to use interface in real time.  Goodbye training." >
@@ -27,6 +28,9 @@
   <%= csrf_meta_tags %>
   <script language="javascript" type="text/javascript" src="/assets/flot/jquery.flot.min.js"></script>
   <script language="javascript" type="text/javascript" src="/assets/flot/jquery.flot.time.js"></script>
+  
+  <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+  
 </head>
 <body>
 	<header>
@@ -63,7 +67,12 @@
 		<!-- End of Right Header -->
 	</header>
 	<div class="wrapper">
-	
+		<!-- <ul> 
+			<li><a href="<%= root_url %>">Dash</a></li>
+			<li><a href="#departments">Departments</a></li>
+			<li><a href="#events">Events</a></li>
+			<li><a href="#about">About</a></li>
+		</ul> Comment Out for Naviation --> 
 	<%= yield %>
 	<div class="push"></div>
 	</div>

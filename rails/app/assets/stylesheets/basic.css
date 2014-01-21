@@ -510,6 +510,64 @@ ul.highlight {
 	height: 15.5em;
 }
 
+.dash .first > div {
+	float:left;
+	width:50%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.dash .second > div {
+	float:right;
+	width:50%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#dash-title {
+	margin-bottom: 0.6em;
+	border-bottom:thick solid #000000;
+}
+
+
+.green-arrow {
+	width: 20px;
+	height: 20px;
+	background: green;
+	position: relative;
+	animation:mymove 4s ease-out forwards;
+	animation-iteration-count:infinite;
+
+	/* Safari and Chrome */
+	-webkit-animation:mymove 4s;
+	-webkit-animation-iteration-count:infinite;
+}
+
+@keyframes mymove
+{ from {top:0px; opacity: 0.15;}
+to {top:10px; opacity: 1}
+}
+
+@-webkit-keyframes mymove /* Safari and Chrome */
+{
+from {top:0px; opacity: 0.15;}
+to {top:10px; opacity: 1;}
+}
+
+
+.pt-bold {
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-weight: bold;
+	font-size: 3.5em;
+}
+
+.pt-large {
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 7em;
+}
+
 #footer {
 	height: 15.5em;
 	background: #323232;

@@ -32,17 +32,17 @@ Sweep::Application.routes.draw do
 		
 
  #get "scans/index"
- 
+  resources :dashboard
   resources :events, only: [:index, :show]
 	#resources :scans, :only =>[:create]
   resources :customers, only: [:new, :create]
   resources :departments, only: [:index, :show, :create, :new]
   #resources :department_validation
-  resources :advisors, only: [:create, :new]
+  resources :advisors, only: [:create, :new, :destroy]
   resources :admin
   resources :accounts
   resources :password_resets
   resources :users
   resources :sessions
-  root :to => 'accounts#index'
+  root :to => 'dashboard#index'
 end

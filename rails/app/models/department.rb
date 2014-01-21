@@ -20,4 +20,5 @@ class Department < ActiveRecord::Base
     def init
       self.valid_key ||= SecureRandom.hex(5)
     end
+
 end
