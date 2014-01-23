@@ -27,7 +27,9 @@ class AccountsController < ApplicationController
 #           end
 #           return
 #         else
-#           
+#         current_loggin
+#
+#         department/login
 #         end
 #     end
     

@@ -4,6 +4,7 @@
 			<section>
 			<h1>Log In</h1>
 			<%= form_tag sessions_path do %>
+				<h3 id="email-login">Have a Sweep account?</h3>
 				<p>
 					<%= label_tag :email %><br />
 					<%= email_field_tag :email, params[:email] %>
@@ -16,6 +17,11 @@
 				<p>
 					<%= label_tag :remember_me %>
 					<%= check_box_tag :remember_me, 1, params[:remember_me] %>
+				</p>
+				<h3 id="key-login">Part of a club or organization?</h3>
+				<p>
+					<%= label_tag :valid_key %><br />
+					<%= text_field_tag :valid_key, params[:valid_key] %>
 				</p>
 				<p class="button"><%= submit_tag "Log In" %></p>
 			<% end %>
