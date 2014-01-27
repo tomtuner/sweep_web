@@ -8,8 +8,12 @@ class AdminController < ApplicationController
   end
   
   def check_for_admin
-    if current_user.administrator != true && current_user.administrator != 1
+    if !current_user
       redirect_to root_path
+    else
+      if current_user.administrator != true && current_user.administrator != 1
+        redirect_to root_path
+      end
     end
   end
 end

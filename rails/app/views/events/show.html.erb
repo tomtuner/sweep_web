@@ -5,9 +5,11 @@
   			  <h1><%= @event.name %></h1>
 			  <h3><%= @department.name %></h3>
 			<div>
-			  Download:
-			  <%= link_to "Excel", :anchor => "wall", format: "xls" %>
-			  <%= link_to "CSV", :anchor => "wall", format: "csv" %>
+				<% if current_user %>		
+				  Download:
+				  <%= link_to "Excel", :anchor => "wall", format: "xls" %>
+				  <%= link_to "CSV", :anchor => "wall", format: "csv" %>
+				<% end %>
 
 			</div>
 			</section>
@@ -17,9 +19,21 @@
 			<th>Scan Value</th>
 			<th>Date Scanned</th>
 			</tr>
-			<% @scans.reverse.each do |s| %>
-				<tr>	
+			<% @scans.each do |s| %>
+				<tr>
+				<% if current_department %>
+						<% number_obscured =  (s.value.length * 0.75).ceil %>
+						<% obscured_value =  s.value[number_obscured, s.value.length] 
+						new_value = ""
+						for i in 1..number_obscured
+							new_value << "*"
+						end
+						new_value << obscured_value
+						%>
+				<td><%= new_value %></td>
+				<% else %>
 				<td><%= s.value %></td>
+				<% end %>
 				<td><%= l s.scanned_at, :format => :long %></td>
 				</tr>
 			<% end %>
@@ -28,4 +42,3 @@
 		</div>
 	</div>
 </div>
-	

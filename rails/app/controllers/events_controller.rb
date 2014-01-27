@@ -17,28 +17,39 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-    @department = Department.find(@event[:department_id])
-    @advisors = Advisor.find_all_by_user_id(current_user[:id])
     @good_user = 0
-    if @advisors.count > 0
-      @advisors.each do |a|
-        if a.department_id == @event.department_id
-          if a.user_id == current_user.id
-            @good_user = 1
+    
+    @user = current_user
+    @department = current_department
+    if @user
+      @department = Department.find(@event[:department_id])
+      @advisors = Advisor.find_all_by_user_id(current_user[:id])
+      if @advisors.count > 0
+        @advisors.each do |a|
+          if a.department_id == @event.department_id
+            if a.user_id == current_user.id
+              @good_user = 1
+            end
           end
         end
+      else
+        redirect_to root_path
+        return
       end
-    else
-      redirect_to root_path
-      return
+    
+      
+    elsif @department
+      @event_dept = Department.find(@event[:department_id])
+      if @department == @event_dept
+        @good_user = 1
+      end
     end
     
     if @good_user == 0
       redirect_to root_path
       return
     end
-    
-    @scans = Scan.where("event_id = ?", @event[:id])
+    @scans = Scan.where("event_id = ?", @event[:id]).order("scanned_at DESC")
     
     respond_to do |format|
       format.html # show.html.erb

@@ -69,8 +69,11 @@
 					</section>
 					<section class="sw-table">
 						<div>
-						  Download:
-						  <%= link_to "Excel", accounts_path(format: "xls", department_id: @department.id  ) %>
+							<% if current_user %>
+							
+							  Download:
+							  <%= link_to "Excel", accounts_path(format: "xls", department_id: @department.id  ) %>
+						 	 <% end %>
 						</div>
 						<table border="1">
 						<tr>
