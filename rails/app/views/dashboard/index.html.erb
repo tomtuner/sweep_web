@@ -75,6 +75,7 @@
 							  <%= link_to "Excel", accounts_path(format: "xls", department_id: @department.id  ) %>
 						 	 <% end %>
 						</div>
+						<%= paginate @events %>
 						<table border="1">
 						<tr>
 						<th>Event Title</th>

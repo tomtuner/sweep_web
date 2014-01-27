@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
     @department = current_department
     if @user
       @advisors = Advisor.find_all_by_user_id(current_user[:id])
-      @events = Event.where("department_id IN (?)", @advisors.map(&:department_id)).order("starts_at DESC")
+      @events = Event.where("department_id IN (?)", @advisors.map(&:department_id)).order("starts_at DESC").page(params[:page]).per(20)
       if @advisors.count > 1
         @departments = Department.find(@advisors.map(&:department_id).uniq)
       elsif @advisors.count == 1
@@ -18,7 +18,7 @@ class DashboardController < ApplicationController
       end
       
     elsif @department
-      @events = Event.where("department_id IN (?)", @department.id).order("starts_at DESC")
+      @events = Event.where("department_id IN (?)", @department.id).order("starts_at DESC").page(params[:page]).per(20)
       @scans = Scan.where("event_id IN (?)", @events.map(&:id))
     end
     
