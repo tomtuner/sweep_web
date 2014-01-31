@@ -15,7 +15,9 @@ module Api
           updated_at_date = DateTime.strptime(params[:updated_at], '%Y-%m-%dT%H:%M:%S%z')
           @events = Event.where("department_id = ? AND updated_at > ?",  valid_dep[:id], updated_at_date)
         else
-          @events = Event.where("department_id = ?",  valid_dep[:id])
+          @last_sixty = Date.today - 60
+          @next_sixty = Date.today + 60
+          @events = Event.where("department_id = ? AND starts_at BETWEEN ? AND ?", valid_dep[:id], @last_sixty, @next_sixty)  
         end
         # events = Event.find_by_department_id(valid_dep[:id])
         #Rails.logger.info(events)

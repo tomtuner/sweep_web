@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
         # if (params[:csv] && params[:xls])
         
           @department = Department.find(params[:department_id])
-          @events = Event.find(:all, order: "starts_at DESC", :conditions => ["department_id = ?", @department.id], :limit => 20)
+          @events = Event.find(:all, order: "starts_at DESC", :conditions => ["department_id = ?", @department.id])
           @scans = Scan.where("event_id IN (?)", @events.map(&:id))
           
         # end
