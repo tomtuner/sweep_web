@@ -12,17 +12,17 @@ class DashboardController < ApplicationController
         @departments = Department.find(@advisors.map(&:department_id).uniq)
       elsif @advisors.count == 1
         @department = Department.find(@advisors.first.department_id)
-        @scans = Scan.where("event_id IN (?)", @events.map(&:id))
+        @scans = Scan.select("event_id, value, created_at").where("event_id IN (?)", @events.map(&:id))
       else
       
       end
       
     elsif @department
       @events = Event.where("department_id IN (?)", @department.id).order("starts_at DESC").page(params[:page]).per(20)
-      @scans = Scan.where("event_id IN (?)", @events.map(&:id))
+      @scans = Scan.select("event_id, value, created_at").where("event_id IN (?)", @events.map(&:id))
     end
     
-    @month_scans = Scan.where("event_id IN (?) AND created_at BETWEEN ? AND ?", @events.map(&:id), @beg_of_month, Time.now)
+    @month_scans = Scan.where("event_id IN (?) AND created_at BETWEEN ? AND ?", @events.map(&:id), @beg_of_month, Time.now).count
     @month_scans_uniq = Scan.where("event_id IN (?) AND CREATED_at BETWEEN ? AND ?", @events.map(&:id), @beg_of_month, Time.now).count('value', :distinct => true)
 
     
