@@ -1,10 +1,11 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: sweep_ruby
+  host: sweep-dev-instance.cur3bc6eram5.us-east-1.rds.amazonaws.com
+  database: sweep_dev
   username: sweep
-  password: sweep
-  socket: /var/lib/mysql/mysql.sock
+  password: SweepEvents9
+  # socket: /var/lib/mysql/mysql.sock
   pool: 5
 
 # Warning: The database defined as "test" will be erased and
@@ -23,8 +24,9 @@ test:
 production:
   adapter: mysql2
   encoding: utf8
-  database: sweep_ruby
+  host: sweep-prod-instance.cur3bc6eram5.us-east-1.rds.amazonaws.com
+  database: sweep_prod
   username: sweep
-  password: sweep
-  socket: /var/lib/mysql/mysql.sock
+  password: SweepEvents9
+  # socket: /var/lib/mysql/mysql.sock
   pool: 5
