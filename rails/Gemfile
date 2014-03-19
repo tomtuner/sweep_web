@@ -13,11 +13,15 @@ gem 'therubyracer'
 # gem "d3-rails"
 
 gem 'json'
-gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'bcrypt', :require => 'bcrypt'
 
 gem 'kaminari'
 
-gem 'rack-mini-profiler'
+gem 'qr4r'
+
+# gem 'paperclip'
+gem 'aws-sdk'
+# gem 'aws-s3'
 
 # Gems used only for assets and not required
 # in production environments by default.

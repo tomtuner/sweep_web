@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'csv'
+require 'qr4r'
 require 'rails/all'
 
 if defined?(Bundler)

@@ -1,3 +1,6 @@
+require 'qr4r'
+# require 'aws/s3'
+
 class UsersController < ApplicationController
   http_basic_authenticate_with :name => 'SweepEvents', :password => 'SweepEvents9', except: [:update]
   def new
@@ -7,12 +10,28 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
-    if @user.save
-      redirect_to root_path, :notice => "Signed Up!"
-    else
-      @customers = Customer.all
-      render "new"
-    end
+    
+    # Don't know why these were here
+    # @departments = Department.find_all_by_customer_id(current_user[:customer_id])    
+    # @advisors = Advisor.find_all_by_customer_id(current_user[:customer_id])
+    
+    fname = @user.u_id.to_s + ".png"
+    Qr4r::encode(@user.u_id.to_s, fname, :pixel_size => 10)
+    
+    s3 = AWS::S3.new
+    obj = s3.buckets['qr-dev.sweep.kanzu/codes'].objects[fname]
+    obj.write(Pathname.new(fname))
+    # AWS::S3Object.store(fname, open(fname), 'qr-dev.sweep.kanzu/codes')
+    # 
+    # respond_to do |format|
+      if @user.save
+        UserMailer.registration_confirmation(@user).deliver
+        redirect_to root_path, :notice => "Signed Up!"
+      else
+        @customers = Customer.all
+        render "new"
+      end
+    # end
   end
   
   def update

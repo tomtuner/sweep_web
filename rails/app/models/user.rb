@@ -4,12 +4,13 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
   before_create { generate_token(:auth_token) }
+  before_create :generate_unique_id
   
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create
   validates_presence_of :email
   validates_uniqueness_of :email
-  validates_presence_of :customer_id
+  # validates_presence_of :customer_id
   
   
   def self.authenticate(email, password)
@@ -40,4 +41,13 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
+    
+  private
+    def generate_unique_id
+      begin
+        self.u_id = rand(10 ** 11).to_s.rjust(11,'0')
+      end while (not User.find_by_u_id(self.u_id).blank?)
+      self.barcode_url = ApplicationController.helpers.s3_dev_url + "/" + self.first_name + "_" + self.last_name + ".png"
+    end
+    
 end

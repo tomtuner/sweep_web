@@ -35,13 +35,14 @@
 					 <%= f.label :password_confirmation %> <br />
 					 <%= f.password_field :password_confirmation %> <br />
 				  </p>
+				  <!--
 				  <p>
 					 <%= f.collection_select(:customer_id, @customers, :id, :name, {prompt: "Select a Customer"}) %> <br />
 				  </p>
-				  <p>
+		 		 <p> 
 					 <%= f.label :administrator %> <br />
 					 <%= f.check_box :administrator %> <br />
-				  </p>
+				  </p> -->
   
 				  <p class="button"><%= f.submit %></p>
 				<% end %>
