@@ -64,11 +64,12 @@ Sweep::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Do not compress assets
+  # Do not compress compress
   config.assets.compress = false
 
   # Expands the lines which load the assets
   config.assets.debug = true
   
   config.action_mailer.default_url_options = { host: "developer.sweepevents.com" }
+  config.action_mailer.asset_host = "https://developer.sweepevents.com"
 end

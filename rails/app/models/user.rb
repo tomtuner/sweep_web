@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
   before_create { generate_token(:auth_token) }
-  before_create :generate_unique_id
+  # before_create :generate_unique_id
   
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create
@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   # validates_presence_of :customer_id
   
+  def initialize(attributes={})
+      super
+      self.generate_unique_id
+  end
   
   def self.authenticate(email, password)
     user = find_by_email(email)
@@ -42,12 +46,12 @@ class User < ActiveRecord::Base
     end
   end
     
-  private
+  
     def generate_unique_id
       begin
         self.u_id = rand(10 ** 11).to_s.rjust(11,'0')
       end while (not User.find_by_u_id(self.u_id).blank?)
-      self.barcode_url = ApplicationController.helpers.s3_dev_url + "/" + self.first_name + "_" + self.last_name + ".png"
+      self.barcode_url = ApplicationController.helpers.s3_url + "/" + self.u_id.to_s + ".png"
     end
     
 end

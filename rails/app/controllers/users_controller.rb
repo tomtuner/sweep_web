@@ -18,9 +18,14 @@ class UsersController < ApplicationController
     fname = @user.u_id.to_s + ".png"
     Qr4r::encode(@user.u_id.to_s, fname, :pixel_size => 10)
     
-    s3 = AWS::S3.new
-    obj = s3.buckets['qr-dev.sweep.kanzu/codes'].objects[fname]
-    obj.write(Pathname.new(fname))
+    ApplicationController.helpers.upload_to_s3(fname, ApplicationController.helpers.s3_bucket_name)
+    File.delete(fname) if File.exist?(fname)
+    # s3 = AWS::S3.new
+ #    bucket_name = ApplicationController.helpers.s3_bucket_name
+ #    obj = s3.buckets[bucket_name].objects[fname]
+ #    obj.write(Pathname.new(fname))
+    
+    
     # AWS::S3Object.store(fname, open(fname), 'qr-dev.sweep.kanzu/codes')
     # 
     # respond_to do |format|
@@ -32,6 +37,13 @@ class UsersController < ApplicationController
         render "new"
       end
     # end
+  end
+  
+  def show
+    @user = User.find(params[:id])
+    
+    
+    
   end
   
   def update

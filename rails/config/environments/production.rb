@@ -22,6 +22,22 @@ Sweep::Application.configure do
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
+  # 
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "mail.sweepevents.com",
+    :user_name            => "thomas.demeo@sweepevents.com",
+    :password             => "",
+    :authentication       => :plain,
+    :enable_starttls_auto => true
+  }
+
+  config.action_mailer.default_url_options = {
+    :host => "www.sweepevents.com"
+  }
+  
+  config.action_mailer.asset_host = "www.sweepevents.com"
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
