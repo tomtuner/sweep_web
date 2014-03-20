@@ -5,7 +5,7 @@ class ConfirmEmailController < ApplicationController
     if user
       user.email_conf = true
       user.save
-      redirect_to root_path
+      # redirect_to root_path
     else
       
     end

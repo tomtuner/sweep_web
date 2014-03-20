@@ -32,6 +32,7 @@ Sweep::Application.routes.draw do
 		
 
  #get "scans/index"
+   resources :welcome
   resources :dashboard
   resources :confirm_email
   resources :events, only: [:index, :show]

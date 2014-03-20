@@ -11,8 +11,13 @@ class SessionsController < ApplicationController
       else
         cookies[:auth_token] = user.auth_token
       end
-      
-      redirect_to root_url, :notice => "Logged In!"
+      has_last_login = user.last_log_in
+      user.update_attribute(:last_log_in, Time.now)
+      if has_last_login
+        redirect_to root_url, :notice => "Logged In!"
+      else
+        redirect_to :controller=> 'welcome', :action => 'index'
+      end
     elsif department
       if params[:remember_me]
         cookies.permanent[:valid_key] = department.valid_key
