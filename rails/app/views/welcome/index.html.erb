@@ -2,11 +2,17 @@
 	<div class="row">
 		<div class="centered">
 			<section>
-				<h1>Welcome.</h1>
+				<h1>Welcome</h1>
 			</section>
 			<section>
-				<div>Sweep is disrupting the way we attend events</div>
-				<div class="qrcode"><%= image_tag current_user.barcode_url %></div>
+				<p>Sweep is disrupting the way we attend events.</p>
+				<div class="qrcode-bg"><%= image_tag current_user.barcode_url, class: "qrcode" %></div>
+					<div id="container">
+						<div class="toggle-button" id="show-id-toggle" data-message=<%= current_user.u_id %>>Show ID</div>
+						<div class="toggle-button" id="id-toggle" data-message="Show ID"><%= current_user.formatted_u_id %></div>
+					</div>
+				<p>This is your personal <span class="bold">Sweep Pass</span>!<br>
+				Present this at Sweep events to start building your personal event portfolio.</p>
 			</section>
 		</div>
 	</div>

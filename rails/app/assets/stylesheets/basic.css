@@ -213,6 +213,15 @@ a {
 	color: #2E7187;
 }
 
+section > h1 {
+	margin-bottom: 0.6em;
+	
+}
+
+.toggle-button {
+	
+}
+
 a:hover {
 	color: #46ABCC;
 }
@@ -524,6 +533,70 @@ ul.highlight {
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+}
+
+.toggle-button {
+	-moz-box-shadow: 0px 0px 23px 2px #939393;
+	-webkit-box-shadow: 0px 0px 23px 2px #939393;
+	box-shadow: 0px 0px 23px 2px #939393;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #297088), color-stop(1, #297088) );
+	background:-moz-linear-gradient( center top, #297088 5%, #297088 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#297088', endColorstr='#297088');
+	background-color:#297088;
+	-webkit-border-top-left-radius:5px;
+	-moz-border-radius-topleft:5px;
+	border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	-moz-border-radius-topright:5px;
+	border-top-right-radius:5px;
+	-webkit-border-bottom-right-radius:5px;
+	-moz-border-radius-bottomright:5px;
+	border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-moz-border-radius-bottomleft:5px;
+	border-bottom-left-radius:5px;
+	text-indent:0;
+	border:2px solid #297088;
+	display:inline-block;
+	color:#fcfcfc;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:30px;
+	line-height:30px;
+	width:150px;
+	text-decoration:none;
+	text-align:center;
+	margin-bottom: 0.6em;
+	cursor: pointer;
+}
+.toggle-button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #297088), color-stop(1, #297088) );
+	background:-moz-linear-gradient( center top, #297088 5%, #297088 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#297088', endColorstr='#297088');
+	background-color:#297088;
+}
+.toggle-button:active {
+	position:relative;
+	top:1px;
+}
+
+.qrcode-bg {
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+	background-color: white;
+	vertical-align: middle;
+	box-shadow: 0px 0px 5px #939393;
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
+}
+
+.qrcode-bg > img {
+	margin: 0px auto;
+	position: relative;
+	top: 9%;
 }
 
 #dash-title {

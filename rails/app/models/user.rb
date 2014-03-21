@@ -1,10 +1,13 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :customer_id, :administrator, :first_name, :last_name
   attr_accessor :password
+  attr_accessible :formatted_u_id
   
   before_save :encrypt_password
   before_create { generate_token(:auth_token) }
   # before_create :generate_unique_id
+  
+  # after_initialize :format_u_id
   
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create
@@ -24,6 +27,11 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+  
+  def formatted_u_id
+    uid = self.u_id.to_s
+    uid.gsub(/(\d{4})(\d{3})(\d{4})/, '\1-\2-\3')
   end
   
   def send_password_reset

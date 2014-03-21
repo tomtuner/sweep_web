@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
   private
   def current_user
     @current_user ||= User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
+    
+    # logger.debug @current_user.u_id
+    # @current_user.formatted_u_id = @current_user.u_id.to_s.gsub(/(\d{4})(\d{3})(\d{4})/, '\1-\2-\3')
+    # logger.debug @current_user.formatted_u_id + "Current"
+    # @current_user
   end
   
   def current_department
