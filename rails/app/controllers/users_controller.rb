@@ -47,15 +47,19 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = User.find(params[:id])
-
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to root_url, :notice => 'Password Successfully Updated' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @user.errors, :status => :unprocessable_entity }
+    user = User.find(params[:id])
+    new_user = params[:user]
+    
+    # Check that user typed in there correct old password
+    if User.authenticate(user.email, params[:old_password])
+      respond_to do |format|
+        if user.update_attributes(new_user)
+          format.html { redirect_to root_url, :notice => 'Password Successfully Updated' }
+          format.json { head :no_content }
+        else
+          format.html {  }
+          format.json { render :json => user.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end

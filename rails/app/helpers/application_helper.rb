@@ -22,4 +22,17 @@ module ApplicationHelper
     obj.write(Pathname.new(fname))
   end
   
+  def encrypt_value_with_pass(value)
+    password = '9KumsgtpsleSp!'
+    
+    encrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
+    encrypter.encrypt
+    encrypter.pkcs5_keyivgen password
+    
+    # self.value = public_key.public_encrypt(self.value)
+    # 
+    value = encrypter.update(value)
+    value << encrypter.final
+  end
+  
 end

@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="centered">
 			<section>
-				<h2 class="pt-bold dash-title">Welcome</h2>
+				<h2 class="pt-bold dash-title">Profile</h2>
 			</section>
 			<section>
 				<p>Sweep is defining the way we attend events.</p>
@@ -11,8 +11,10 @@
 						<div class="toggle-button" id="show-id-toggle" data-message=<%= current_user.u_id %>>Show ID</div>
 						<div class="toggle-button" id="id-toggle" data-message="Show ID"><%= current_user.formatted_u_id %></div>
 					</div>
-				<p>This is your personal <span class="bold">Sweep Pass</span>!<br>
-				Present this at Sweep events to start building your personal event portfolio.</p>
+				<p>This is your personal <span id="sweep-pass" class="bold">Sweep Pass</span>!</br></p>
+				<div id="sweep-pass-pop">Your Sweep Pass is all you need to check-in to an official Sweep event.</br></br>
+					Present this to an event organizer to check in.
+				</div>
 			</section>
 		</div>
 	</div>

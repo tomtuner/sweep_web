@@ -8,7 +8,7 @@
   <meta name="description" content="Sweep is a tracking and analytics platform for universities and colleges to better understand student engagement on campus.  Sweep captures and displays valuable information about a campus, which can be viewed in a simple and easy to use interface in real time.  Goodbye training." >
   <meta http-equiv="content-type" content="text/html;charset=UTF-8">
   <meta name="keywords" content="Student Engagement, Student Affairs, Campus Life, Clubs and Organizations, iOS, Mobile, Sweep, Kanzu LLC">
-  
+  <meta name = "format-detection" content = "telephone=no">
 	
   <!-- Google Analytics Tracking -->
   <script>
@@ -24,9 +24,12 @@
   <!-- End of Google Analytics Tracking -->
   
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "jquery", "application" %>
+  <%= stylesheet_link_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" %>
+  <%= javascript_include_tag "jquery", "odometer.min", params[:controller] %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" %>
   <%= csrf_meta_tags %>
   
+  <!-- <script src="odometer.min.js"></script> -->
   <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
   
 </head>
@@ -44,7 +47,7 @@
 				<% if current_user || current_department %>
 				<div class="bold inline">
 					<% if current_user %>
-						<%= current_user.first_name %> 
+						<%= link_to current_user.first_name, controller: "profile", action: "index" %> 
 					<% elsif current_department %>
 						<%= current_department.name %> 
 					<% end %>

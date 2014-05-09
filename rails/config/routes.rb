@@ -14,10 +14,16 @@ Sweep::Application.routes.draw do
     # Make sure default one is last in the list!
 		scope :module => :v2, :constraints => ApiConstraints.new(:version => 2) do
 			resources :events
-			resources :scans
+			resources :scans do
+        collection do
+          post 'registration'
+        end
+      end
+      resources :users
       resources :customers
       resources :departments
       resources :department_validation
+      # resources :user_registration
       get 'department_validation/create', to: 'department_validation#index'
 		end
 		scope :module => :v1, :constraints => ApiConstraints.new(:version => 1, :default => true) do
@@ -30,12 +36,11 @@ Sweep::Application.routes.draw do
 		end
 	end
 		
-
- #get "scans/index"
-   resources :welcome
+  resources :welcome
+  resources :profile
   resources :dashboard
   resources :confirm_email
-  resources :events, only: [:index, :show]
+  resources :events, only: [:index, :show, :new, :create]
 	#resources :scans, :only =>[:create]
   resources :customers, only: [:new, :create]
   resources :departments, only: [:index, :show, :create, :new]

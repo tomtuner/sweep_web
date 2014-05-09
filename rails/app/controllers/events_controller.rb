@@ -50,7 +50,8 @@ class EventsController < ApplicationController
       return
     end
     @scans = Scan.where("event_id = ?", @event[:id]).order("scanned_at DESC")
-    
+    @scans_registered = !@scans.map(&:registered_at).all? {|x| x.nil?}
+    logger.debug @scans_registered
     respond_to do |format|
       format.html # show.html.erb
       format.csv { send_data @scans.to_csv }
@@ -62,8 +63,18 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
+    if @user = current_user
+      @advisors = Advisor.find_all_by_user_id(current_user[:id])
+      if @advisors.count > 1
+        @department = Department.find(@advisors.map(&:department_id).uniq)
+      elsif @advisors.count == 1
+        @department = Department.find(@advisors.first.department_id)
+      end
+    elsif @department = current_department
+      
+    end
+    
     @event = Event.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @event }
@@ -78,8 +89,11 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    date = DateTime.strptime(params[:event][:starts_at], "%m/%d/%Y")
     @event = Event.new(params[:event])
-
+    @event.starts_at = date
+    @event.ends_at = date
+    logger.debug date
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, :notice => 'Event was successfully created.' }

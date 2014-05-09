@@ -50,6 +50,15 @@ Sweep::Application.configure do
   config.action_mailer.default_url_options = {
     :host => "developer.sweepevents.com"
   }
+  
+  config.action_mailer.default_url_options = { host: "developer.sweepevents.com" }
+  config.action_mailer.asset_host = "https://developer.sweepevents.com"
+  
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
+
+  # Don't have actionmailer actually perform the mailing part
+  config.action_mailer.perform_deliveries = false
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -70,6 +79,4 @@ Sweep::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   
-  config.action_mailer.default_url_options = { host: "developer.sweepevents.com" }
-  config.action_mailer.asset_host = "https://developer.sweepevents.com"
 end

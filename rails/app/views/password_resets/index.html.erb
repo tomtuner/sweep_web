@@ -15,14 +15,19 @@
 					</ul>
 				</div>
 				<% end %>
-				<div class="field">
-					<%= f.label :password %>
-					<%= f.password_field :password %>
-				</div>
-				<div class="field">
-					<%= f.label :password_confirmation %>
-					<%= f.password_field :password_confirmation %>
-				</div>
+			  	<p>
+				 <%= label_tag :old_password %> <br />
+				 <%= password_field_tag :old_password %> <br />
+			  	</p>
+			  	<p>
+				 <%= f.label :password %> <br />
+				 <%= f.password_field :password %> <br />
+			  	</p>
+			  	<p>
+				 <%= f.label :password_confirmation %> <br />
+				 <%= f.password_field :password_confirmation %> <br />
+			 </p>
+
 				<div class="actions"><%= f.submit "Update Password "%></div>
 			<% end %>
 			</section>

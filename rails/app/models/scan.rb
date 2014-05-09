@@ -22,15 +22,16 @@ class Scan < ActiveRecord::Base
   end
   
   def decrypt_value_with_pass
-    password = '9KumsgtpsleSp!'
+    if self.has_attribute?(:value)
+      password = '9KumsgtpsleSp!'
         
-    decrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
-    decrypter.decrypt
-    decrypter.pkcs5_keyivgen(password)
+      decrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
+      decrypter.decrypt
+      decrypter.pkcs5_keyivgen(password)
     
-    self.value = decrypter.update(self.value)
-    self.value << decrypter.final
-    
+      self.value = decrypter.update(self.value)
+      self.value << decrypter.final
+    end
   end
   
   def decrypt_value_with_key
@@ -69,17 +70,18 @@ class Scan < ActiveRecord::Base
   private
   
   def encrypt_value_with_pass
-    password = '9KumsgtpsleSp!'
+    if self.value
+      password = '9KumsgtpsleSp!'
     
-    encrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
-    encrypter.encrypt
-    encrypter.pkcs5_keyivgen password
+      encrypter = OpenSSL::Cipher::Cipher.new 'AES-128-CBC'
+      encrypter.encrypt
+      encrypter.pkcs5_keyivgen password
     
-    # self.value = public_key.public_encrypt(self.value)
-    # 
-    self.value = encrypter.update(self.value)
-    self.value << encrypter.final
-    
+      # self.value = public_key.public_encrypt(self.value)
+      # 
+      self.value = encrypter.update(self.value)
+      self.value << encrypter.final
+    end
   end
   
   def encrypt_value_with_key

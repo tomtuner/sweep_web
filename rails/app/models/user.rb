@@ -55,11 +55,12 @@ class User < ActiveRecord::Base
   end
     
   
-    def generate_unique_id
-      begin
-        self.u_id = rand(10 ** 11).to_s.rjust(11,'0')
-      end while (not User.find_by_u_id(self.u_id).blank?)
-      self.barcode_url = ApplicationController.helpers.s3_url + "/" + self.u_id.to_s + ".png"
-    end
+  def generate_unique_id
+    begin
+      self.u_id = rand(10000000000..99999999999)
+      logger.debug self.u_id
+    end while (not User.find_by_u_id(self.u_id).blank?)
+    self.barcode_url = ApplicationController.helpers.s3_url + "/" + self.u_id.to_s + ".png"
+  end
     
 end

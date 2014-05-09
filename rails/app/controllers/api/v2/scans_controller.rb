@@ -1,7 +1,9 @@
+require 'qr4r'
+
 module Api
   module V2
     class ScansController < SecureApplicationController
-      before_filter :check_department_key
+      before_filter :check_department_key, except: [:registration]
       respond_to :json
       
       def index
@@ -46,13 +48,49 @@ module Api
       end
       
       def update
-        @scan = Scan.update(params[:id], params[:scan])
+        tempScan = params[:scan]
+        id = tempScan[:id]
+        @scan = Scan.update(id, tempScan)
         respond_with(:api, @scan)
       end
       
       def destroy
         @scan = Scan.destroy(params[:id])
         respond_with(:api, @scan)
+      end
+      
+      def registration
+        @user = User.new(params[:user])
+        @scan = Scan.new(params[:scan])
+        if !(@user = User.find_by_email(@user.email))
+          @user = User.new(params[:user])
+          fname = @user.u_id.to_s + ".png"
+          Qr4r::encode(@user.u_id.to_s, fname, :pixel_size => 10)
+    
+          ApplicationController.helpers.upload_to_s3(fname, ApplicationController.helpers.s3_bucket_name)
+          File.delete(fname) if File.exist?(fname)
+        
+          # Set users temp password
+          @user.password = SecureRandom.hex(10)
+          logger.debug @user.password
+          @user.save
+        end
+        @scan.value = @user.u_id.to_s
+        # scan = @scan
+        # @scan.save
+        
+        # Can't do this until it is added to scans
+        @scan.registered_at = Time.now
+        @scan.user_id = @user.id
+        @scan.status = 0
+        @scan.save
+        
+        # Send confirmation email
+        # UserMailer.registration_confirmation(@user).deliver
+        # respond_with(:api, @user)
+        render :json => {
+          response: {status: 200, message: "Success"},
+        }
       end
       
       private

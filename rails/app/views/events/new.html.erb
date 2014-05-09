@@ -1,5 +1,42 @@
-<h1>New event</h1>
+<div class="page-fold">
+	<div class="row">
+		<div class="centered">
+			<section>
+				<h1>Create Event</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', events_path %>
+				<%= form_for @event do |f| %>
+				  <% if @event.errors.any? %>
+				    <div class="error_messages">
+				      <h2>Form is invalid</h2>
+				      <ul>
+				        <% for message in @event.errors.full_messages %>
+				          <li><%= message %></li>
+				        <% end %>
+				      </ul>
+				    </div>
+				  <% end %>
+				  <p>
+					 <%= f.label :name %> <br />
+					 <%= f.text_field :name %> <br />
+				  </p>
+				  <p>
+					 <%= f.label :department, "Department Name" %> <br />
+					 <% if !@department.is_a?(Array) %>
+						 <%= f.hidden_field :department_id, value: @department.id %>
+						 <span class="bold"><%= @department.name %></span>
+					 <% else %>
+					 	<%= f.select :department_id, options_from_collection_for_select(@department, 'id', 'name', 1) %>
+					 <% end %>
+				  </p>
+				  <!-- TODO Add datepicker here -->
+				  <p>
+					 <%= f.label :starts_at, "Event Date" %> <br />
+					 <%= f.text_field :starts_at %> <br />
+				  </p>  
+				  <p class="button"><%= f.submit %></p>
+				<% end %>
+			</section>
+		</div>
+	</div>
+</div>
+	
