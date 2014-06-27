@@ -50,7 +50,7 @@ module Api
       def update
         tempScan = params[:scan]
         id = tempScan[:id]
-        @scan = Scan.update(id, tempScan)
+        @scan = Scan.update(id, tempScan) 
         respond_with(:api, @scan)
       end
       
@@ -60,37 +60,49 @@ module Api
       end
       
       def registration
+        status = 200
+        message = "Success"
         @user = User.new(params[:user])
         @scan = Scan.new(params[:scan])
-        if !(@user = User.find_by_email(@user.email))
-          @user = User.new(params[:user])
-          fname = @user.u_id.to_s + ".png"
-          Qr4r::encode(@user.u_id.to_s, fname, :pixel_size => 10)
-    
-          ApplicationController.helpers.upload_to_s3(fname, ApplicationController.helpers.s3_bucket_name)
-          File.delete(fname) if File.exist?(fname)
-        
-          # Set users temp password
-          @user.password = SecureRandom.hex(10)
-          logger.debug @user.password
-          @user.save
+
+        if !(@user.first_name && @user.last_name && @user.email)
+          status = 400
+          message = "Invalid user credentials"
+        elsif !@scan.event_id
+          status = 400
+          message = "Invalid scan credentials"
+        else 
+          # Valid Request
+          if !(@user = User.find_by_email(@user.email))
+            @user = User.new(params[:user])
+            fname = @user.u_id.to_s + ".png"
+            Qr4r::encode(@user.u_id.to_s, fname, :pixel_size => 10)
+      
+            ApplicationController.helpers.upload_to_s3(fname, ApplicationController.helpers.s3_bucket_name)
+            File.delete(fname) if File.exist?(fname)
+          
+            # Set users temp password
+            @user.password = SecureRandom.hex(10)
+            logger.debug @user.password
+            @user.save
+          end
+          @scan.value = @user.u_id.to_s
+          
+          # Can't do this until it is added to scans
+          @scan.registered_at = Time.now
+          @scan.user_id = @user.id
+          @scan.status = 0
+          @scan.save
+          
+          # Send confirmation email
+          UserMailer.registration_confirmation(@user).deliver
+          # respond_with(:api, @user)
         end
-        @scan.value = @user.u_id.to_s
-        # scan = @scan
-        # @scan.save
-        
-        # Can't do this until it is added to scans
-        @scan.registered_at = Time.now
-        @scan.user_id = @user.id
-        @scan.status = 0
-        @scan.save
-        
-        # Send confirmation email
-        # UserMailer.registration_confirmation(@user).deliver
-        # respond_with(:api, @user)
-        render :json => {
-          response: {status: 200, message: "Success"},
+        response = {
+          status: status,
+          message: message
         }
+        render json: response, status: status, content_type: "application/json"
       end
       
       private

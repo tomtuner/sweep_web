@@ -16,11 +16,10 @@
         <tr class="episode" align="center">
           <td valign="top">
             <h2 style="margin-top:30px; margin-bottom:8px; font-size:18px;">Welcome to Sweep!</h2>
-            <p>Confirm your email address and start disrupting the way events are attended.</p>
+            <p>"There is no power for change greater than a community discovering what it cares about."<br/>- Margret Wheatley</p>
             <p style="padding: 30px 0px 38px 0px">
-              <a style="color:#297088;text-decoration:none;border-radius:3px;border:1px solid #297088;padding:10px 19px 12px 19px;font-size:17px;font-weight:500;white-space:nowrap;border-collapse:collapse;display:inline-block;font-family:Helvetica Neue,Helvetica,Arial,sans-serif" href=<%= confirm_email_url(@user.auth_token)%> target="_blank">Confirm your email address</a>
-            </p>
-            <p>Your temporary password is: <%=@user.password%></p>
+              <p style="color:#297088;text-decoration:none;border-radius:3px;border:1px solid #297088;padding:10px 19px 12px 19px;font-size:17px;font-weight:500;white-space:nowrap;border-collapse:collapse;display:inline-block;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">Temporary Password: <%=@user.password%></p>
+              </p>
           </td>
         </tr>
         <tr>

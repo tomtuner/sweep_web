@@ -3,9 +3,12 @@ class ConfirmEmailController < ApplicationController
   def show
     user = User.find_by_auth_token(params[:id])
     if user
-      user.email_conf = true
-      user.save
-      # redirect_to root_path
+      if !user.email_conf
+        user.email_conf = true
+        user.save
+      else
+        redirect_to root_path
+      end
     else
       
     end

@@ -11,6 +11,11 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail to: "#{user.first_name} #{user.last_name} <#{user.email}>", :subject => "Sweep Registration Confirmation!"
   end
+
+  def email_confirmation(user)
+    @user = user
+    mail to: "#{user.first_name} #{user.last_name} <#{user.email}>", :subject => "Sweep Temporary Password!"
+  end
   
   def password_reset(user)
     @user = user
